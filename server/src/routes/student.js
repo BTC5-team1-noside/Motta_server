@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const knex = require('./knex.js');
 
+// 1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
 router.get('/timetable-history/:date', async (req, res) => {
   const date = req.params.date;
   const obj = {
@@ -22,13 +23,14 @@ router.get('/timetable-history/:date', async (req, res) => {
 
   try {
     console.log(
-      '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する為。'
+      '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する'
     );
     console.log('dateは:', date);
     res.status(200).send(obj);
   } catch (error) {}
 });
 
+// 2.GET:カレンダーにスタンプを一覧表示したい
 router.get('/confirm-history/:date', async (req, res) => {
   const date = req.params.date || '2023-12-13';
   const arr = [
@@ -42,6 +44,7 @@ router.get('/confirm-history/:date', async (req, res) => {
   } catch (error) {}
 });
 
+// 3.POST:カレンダーにスタンプを押す
 router.post('/confirm-history/:date', async (req, res) => {
   const dateObj = req.body; // 想定body: {id: 1, date: "2023-12-18"}
 
@@ -51,12 +54,5 @@ router.post('/confirm-history/:date', async (req, res) => {
     res.status(200).send('POST成功〜');
   } catch (error) {}
 });
-
-// router.delete('d', async (req, res) => {
-//   try {
-//     console.log('接続を確認');
-//     res.status(200).send('stundentのDELETE');
-//   } catch (error) {}
-// });
 
 module.exports = router;

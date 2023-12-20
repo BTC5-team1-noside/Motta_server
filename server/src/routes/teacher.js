@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const knex = require('./knex.js');
 
+// 1.GET:持ち物登録画面で各曜日に設定された教科を呼び出して表示したい
 router.get('/subjects/:date', async (req, res) => {
   const date = req.params.date;
   const obj = {
@@ -29,24 +30,27 @@ router.get('/subjects/:date', async (req, res) => {
   } catch (error) {}
 });
 
-router.post('/b', async (req, res) => {
+// 2.POST:持ち物登録画面で、その日の科目を新規登録したい。
+router.post('/timetable-history/:date', async (req, res) => {
+  const date = req.params.date;
+
   try {
-    console.log('thecherのPOST');
-    res.status(200).send('thecherのPOST');
+    console.log('2.POST:持ち物登録画面で、その日の科目を新規登録したい。');
+    console.log('dateは:', date);
+    console.log('bodyは？', req.body);
+    res.status(200).send('TeacherのPOST受け取りました');
   } catch (error) {}
 });
 
-router.put('/c', async (req, res) => {
-  try {
-    console.log('thecherのPUT');
-    res.status(200).send('thecherのPUT');
-  } catch (error) {}
-});
+// 3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。
+router.patch('/timetable-history/:date', async (req, res) => {
+  const date = req.params.date;
 
-router.delete('/d', async (req, res) => {
   try {
-    console.log('thecherのDELETE');
-    res.status(200).send('thecherのDELETE');
+    console.log('3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。');
+    console.log('dateは:', date);
+    console.log('bodyは？', req.body);
+    res.status(200).send('TeacherのPATCH受け取りました');
   } catch (error) {}
 });
 
