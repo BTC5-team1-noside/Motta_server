@@ -6,6 +6,7 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex('belongings').del();
   await knex('timetables').del();
+  await knex('timetables_history').del();
   await knex('subjects').del();
   await knex('subjects').insert([
     { subject_name: '国語' },
