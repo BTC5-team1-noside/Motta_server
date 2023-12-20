@@ -5,7 +5,7 @@ const knex = require('./knex.js');
 router.get('/timetable-history/:date', async (req, res) => {
   const date = req.params.date;
   const obj = {
-    selectedDate: '2023-12-20(サンプルです。)',
+    selectedDate: '2023-12-20',
     subjects: [
       {
         period: 1,
@@ -34,7 +34,7 @@ router.get('/timetable-history/:date', async (req, res) => {
 router.get('/confirm-history/:date', async (req, res) => {
   const date = req.params.date || '2023-12-13';
   const arr = [
-    ['2023-12-1', '2023-12-2', '2023-12-3', '2023-12-4', '2023-12-5'],
+    ['2023-12-18', '2023-12-19', '2023-12-20', '2023-12-21', '2023-12-22'],
   ];
   // arrを使って、フロントで該当する日付にスタンプを表示してください
   try {

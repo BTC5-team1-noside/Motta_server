@@ -5,7 +5,7 @@ const knex = require('./knex.js');
 router.get('/subjects/:date', async (req, res) => {
   const date = req.params.date;
   const obj = {
-    selectedDate: '2023-12-20(サンプルです。)',
+    selectedDate: '2023-12-20',
     subjects: [
       {
         period: 1,
