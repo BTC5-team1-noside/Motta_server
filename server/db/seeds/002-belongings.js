@@ -33,6 +33,6 @@ exports.seed = async function (knex) {
 
   // シーケンスのリセット（次に生成される値を1に設定）
   return knex.raw("SELECT setval('belongings_id_seq', 1, false)").then(() => {
-    console.log('シーケンスがリセットされました');
+    console.log('belongingsのシーケンスをリセットしました');
   });
 };

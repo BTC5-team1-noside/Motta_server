@@ -21,6 +21,6 @@ exports.seed = async function (knex) {
 
   // シーケンスのリセット（次に生成される値を1に設定）
   return knex.raw("SELECT setval('timetables_id_seq', 1, false)").then(() => {
-    console.log('シーケンスがリセットされました');
+    console.log('timetablesのシーケンスをリセットしました');
   });
 };
