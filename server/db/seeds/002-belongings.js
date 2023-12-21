@@ -3,8 +3,12 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
-  // await knex("belongings").del();
+  // インクリメントでidがズレるのを防ぐ。シーケンスのリセット（次に生成されるidの値を1に設定）
+  await knex.raw("SELECT setval('belongings_id_seq', 1, false)").then(() => {
+    console.log('belongingsのシーケンスをリセットしました');
+  });
+
+  // seed挿入
   await knex('belongings').insert([
     { subject_id: 1, belonging_name: '国語の教科書' },
     { subject_id: 1, belonging_name: '国語のノート' },
@@ -30,9 +34,4 @@ exports.seed = async function (knex) {
     { subject_id: 11, belonging_name: '道徳の教科書' },
     { subject_id: 11, belonging_name: '道徳のノート' },
   ]);
-
-  // シーケンスのリセット（次に生成される値を1に設定）
-  return knex.raw("SELECT setval('belongings_id_seq', 1, false)").then(() => {
-    console.log('belongingsのシーケンスをリセットしました');
-  });
 };

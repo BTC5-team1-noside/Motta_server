@@ -3,8 +3,12 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
-  // await knex("timetables").del();
+  // インクリメントでidがズレるのを防ぐ。シーケンスのリセット（次に生成されるidの値を1に設定）
+  await knex.raw("SELECT setval('timetables_id_seq', 1, false)").then(() => {
+    console.log('timetablesのシーケンスをリセットしました');
+  });
+
+  // seed挿入
   await knex('timetables').insert([
     { subject_id: 1, day: '月', period: 1 },
     { subject_id: 3, day: '月', period: 2 },
@@ -18,9 +22,4 @@ exports.seed = async function (knex) {
     { subject_id: 7, day: '火', period: 4 },
     { subject_id: 6, day: '火', period: 5 },
   ]);
-
-  // シーケンスのリセット（次に生成される値を1に設定）
-  return knex.raw("SELECT setval('timetables_id_seq', 1, false)").then(() => {
-    console.log('timetablesのシーケンスをリセットしました');
-  });
 };

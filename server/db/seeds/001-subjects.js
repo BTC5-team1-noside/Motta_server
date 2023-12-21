@@ -3,11 +3,18 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
+  // インクリメントでidがズレるのを防ぐ。シーケンスのリセット（次に生成されるidの値を1に設定）
+  await knex.raw("SELECT setval('subjects_id_seq', 1, false)").then(() => {
+    console.log('subjectsのシーケンスをリセットしました');
+  });
+
+  // 参照先のテーブルを先に削除
   await knex('belongings').del();
   await knex('timetables').del();
   await knex('timetables_history').del();
   await knex('subjects').del();
+
+  // seed挿入
   await knex('subjects').insert([
     { subject_name: '国語' },
     { subject_name: '算数' },
@@ -21,9 +28,4 @@ exports.seed = async function (knex) {
     { subject_name: '総合' },
     { subject_name: '道徳' },
   ]);
-
-  // シーケンスのリセット（次に生成される値を1に設定）
-  return knex.raw("SELECT setval('subjects_id_seq', 1, false)").then(() => {
-    console.log('subjectsのシーケンスをリセットしました');
-  });
 };
