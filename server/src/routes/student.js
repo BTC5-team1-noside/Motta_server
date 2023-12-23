@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const knex = require('./knex.js');
 const moment = require('moment-timezone');
-
+const { createSubjectsList } = require('./helpers.js');
 const {
   checkHistory,
   getSubjectList,
-  createSubjectsList,
   createItems,
-} = require('./helpers.js');
+  getConfirmsHistory,
+} = require('./api.js');
 
 // 🚀1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
 router.get('/timetables-history/:date', async (req, res) => {
@@ -58,14 +58,15 @@ router.get('/confirms-history', async (req, res) => {
     // 2023-12-18の日付を2023-12に変換
     const splitDate = date.split('-');
     const formatDate = splitDate[0] + '-' + splitDate[1] + '%';
+    const tableName = 'confirms_history';
+    const isExactMatch = false;
 
-    // 年と月の部分一致で日付データを複数取得
-    const confirmsHistory = await knex('confirms_history')
-      .select('date')
-      .where({
-        student_id: studentId,
-      })
-      .whereRaw("to_char(date, 'YYYY-MM') like ?", [formatDate]);
+    const confirmsHistory = await getConfirmsHistory(
+      studentId,
+      formatDate,
+      tableName,
+      isExactMatch
+    );
 
     // 日付データを日本時間に変換して配列に格納
     dayList = confirmsHistory.map((el) =>
@@ -76,24 +77,28 @@ router.get('/confirms-history', async (req, res) => {
   try {
     console.log('2.GET:カレンダーにスタンプを一覧表示したい');
     res.status(200).send(dayList);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
 });
 
 // 🚀3.POST:カレンダーにスタンプを押す
 router.post('/confirms-history', async (req, res) => {
   const studentId = req.body.student_id;
   const checkDate = req.body.date;
+  const tableName = 'confirms_history';
+  const isExactMatch = true;
 
-  // confirms_historyから生徒idに一致するdateを取得
-  const existingData = await knex('confirms_history')
-    .where({
-      student_id: studentId,
-      date: checkDate,
-    })
-    .select();
+  const confirmsHistory = await getConfirmsHistory(
+    studentId,
+    checkDate,
+    tableName,
+    isExactMatch
+  );
 
   // データベースに存在しない場合のみ挿入する
-  if (existingData.length === 0) {
+  if (confirmsHistory.length === 0) {
     await knex('confirms_history').insert({
       student_id: studentId,
       date: checkDate,
@@ -101,13 +106,13 @@ router.post('/confirms-history', async (req, res) => {
 
     try {
       console.log('3.POST:カレンダーにスタンプを押す');
-      res.status(200).send('POSTリクエストを受け取りました');
+      res.status(200).send('新規データなので保存します');
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
     }
   } else {
-    res.status(409).send('データが既に存在します');
+    res.status(409).send('データが既に存在するので保存しません');
   }
 });
 
