@@ -2,57 +2,33 @@ const router = require('express').Router();
 const knex = require('./knex.js');
 const moment = require('moment-timezone');
 
+const {
+  checkHistory,
+  getSubjectList,
+  createSubjectsList,
+  createItems,
+} = require('./helpers.js');
+
 // 🚀1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
 router.get('/timetables-history/:date', async (req, res) => {
-  const date = req.params.date;
+  let date = req.params.date;
+  let tableName = 'timetables_history';
+  let dateOrDay = { date: date };
+  let itemsTableName = 'items_history';
 
-  // dateを元に3つのテーブル(timetables_history,belongings,subjects)から時間割や持ち物データ取得
-  const subjectIdList = await knex('timetables_history')
-    .where({
-      date: date,
-    })
-    .join(
-      'belongings',
-      'timetables_history.subject_id',
-      '=',
-      'belongings.subject_id'
-    )
-    .join('subjects', 'timetables_history.subject_id', '=', 'subjects.id');
+  const historys = await checkHistory(date); // 'timetables_history'にデータあるかチェック
 
-  console.log(subjectIdList);
+  // 履歴がない時
+  if (!historys.length) {
+    tableName = 'timetables';
+    dateOrDay = { day: moment(date).locale('ja').format('dd') };
+    itemsTableName = 'items';
+    date = '';
+  }
 
-  // 受け取ったデータを時間割順に並べる
-  const periodSortList = subjectIdList.sort(
-    (a, b) => a['period'] - b['period']
-  );
-
-  // subjectsを作成
-  const subjects = [];
-  periodSortList.forEach((el) => {
-    // push用のobjを作る
-    const obj = {
-      period: el['period'],
-      subject_name: el['subject_name'],
-      belongings: [el['belonging_name']],
-    };
-
-    const periodArr = subjects.map((e) => e['period']); // periodだけの配列を作る
-    const index = periodArr.indexOf(el['period']); // periodがあるかチェックするためのindexを用意
-
-    if (index === -1) {
-      subjects.push(obj);
-    } else {
-      subjects[index]['belongings'].push(el['belonging_name']);
-    }
-  });
-
-  // items_historyテーブルから日常的に使う持ち物の名前を取得
-  const itemList = await knex('items_history')
-    .select('item_name')
-    .where({ date: date });
-
-  // itemsを作成
-  const items = itemList.map((el) => el['item_name']);
+  const subjectList = await getSubjectList(dateOrDay, tableName);
+  const subjects = createSubjectsList(subjectList);
+  const items = await createItems(date, itemsTableName);
 
   // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
   const result = {

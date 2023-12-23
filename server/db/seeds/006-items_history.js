@@ -23,5 +23,7 @@ exports.seed = async function (knex) {
     { item_name: '筆箱', date: '2023-12-20' },
     { item_name: '三角定規', date: '2023-12-20' },
     { item_name: '保護者会のプリント', date: '2023-12-20' },
+    { item_name: '赤い羽根募金', date: '2023-12-21' },
+    { item_name: '学芸会のプリント', date: '2023-12-22' },
   ]);
 };

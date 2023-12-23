@@ -29,5 +29,9 @@ exports.seed = async function (knex) {
     { subject_id: 4, period: 4, date: '2023-12-20' },
     { subject_id: 9, period: 5, date: '2023-12-20' },
     { subject_id: 3, period: 6, date: '2023-12-20' },
+    { subject_id: 1, period: 1, date: '2023-12-21' },
+    { subject_id: 2, period: 2, date: '2023-12-21' },
+    { subject_id: 6, period: 1, date: '2023-12-22' },
+    { subject_id: 5, period: 2, date: '2023-12-22' },
   ]);
 };
