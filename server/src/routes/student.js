@@ -2,33 +2,74 @@ const router = require('express').Router();
 const knex = require('./knex.js');
 const moment = require('moment-timezone');
 
-// 1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
+// 🚀1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
 router.get('/timetables-history/:date', async (req, res) => {
   const date = req.params.date;
-  const obj = {
-    selectedDate: '2023-12-20',
-    subjects: [
-      {
-        period: 1,
-        subject: '国語',
-        belongings: ['国語の教科書', '漢字ドリル', '国語のノート'],
-      },
-      {
-        period: 2,
-        subject: '算数',
-        belongings: ['算数の教科書', '算数ドリル', '算数のノート', 'そろばん'],
-      },
-    ],
-    items: ['体操着', 'エプロン', '箸入れ'],
+
+  // dateを元に3つのテーブル(timetables_history,belongings,subjects)から時間割や持ち物データ取得
+  const subjectIdList = await knex('timetables_history')
+    .where({
+      date: date,
+    })
+    .join(
+      'belongings',
+      'timetables_history.subject_id',
+      '=',
+      'belongings.subject_id'
+    )
+    .join('subjects', 'timetables_history.subject_id', '=', 'subjects.id');
+
+  console.log(subjectIdList);
+
+  // 受け取ったデータを時間割順に並べる
+  const periodSortList = subjectIdList.sort(
+    (a, b) => a['period'] - b['period']
+  );
+
+  // subjectsを作成
+  const subjects = [];
+  periodSortList.forEach((el) => {
+    // push用のobjを作る
+    const obj = {
+      period: el['period'],
+      subject_name: el['subject_name'],
+      belongings: [el['belonging_name']],
+    };
+
+    const periodArr = subjects.map((e) => e['period']); // periodだけの配列を作る
+    const index = periodArr.indexOf(el['period']); // periodがあるかチェックするためのindexを用意
+
+    if (index === -1) {
+      subjects.push(obj);
+    } else {
+      subjects[index]['belongings'].push(el['belonging_name']);
+    }
+  });
+
+  // items_historyテーブルから日常的に使う持ち物の名前を取得
+  const itemList = await knex('items_history')
+    .select('item_name')
+    .where({ date: date });
+
+  // itemsを作成
+  const items = itemList.map((el) => el['item_name']);
+
+  // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
+  const result = {
+    selectedDate: date,
+    subjects: subjects,
+    items: items,
   };
 
   try {
     console.log(
       '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する'
     );
-    console.log('dateは:', date);
-    res.status(200).send(obj);
-  } catch (error) {}
+    res.status(200).send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
 });
 
 // 🚀2.GET:カレンダーにスタンプを一覧表示したい
@@ -67,7 +108,7 @@ router.post('/confirms-history', async (req, res) => {
   const studentId = req.body.student_id;
   const checkDate = req.body.date;
 
-  // 確認したいデータがデータベースに存在しない場合のみ挿入
+  // confirms_historyから生徒idに一致するdateを取得
   const existingData = await knex('confirms_history')
     .where({
       student_id: studentId,
@@ -75,8 +116,8 @@ router.post('/confirms-history', async (req, res) => {
     })
     .select();
 
+  // データベースに存在しない場合のみ挿入する
   if (existingData.length === 0) {
-    // データベースに存在しない場合のみ挿入
     await knex('confirms_history').insert({
       student_id: studentId,
       date: checkDate,
@@ -84,15 +125,12 @@ router.post('/confirms-history', async (req, res) => {
 
     try {
       console.log('3.POST:カレンダーにスタンプを押す');
-      console.log('dateObjは:', req.body);
-      res.status(200).send('POST成功〜');
+      res.status(200).send('POSTリクエストを受け取りました');
     } catch (error) {
-      // エラーハンドリング
       console.error(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send('サーバーエラーです');
     }
   } else {
-    // データが既に存在する場合の処理
     res.status(409).send('データが既に存在します');
   }
 });
