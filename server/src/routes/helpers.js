@@ -1,5 +1,5 @@
 // ✨subjectsを作成用のヘルパー関数
-const createSubjectsList = (subjectList) => {
+const createSubjects = (subjectList) => {
   const subjects = [];
 
   subjectList.forEach((el) => {
@@ -23,5 +23,5 @@ const createSubjectsList = (subjectList) => {
 };
 
 module.exports = {
-  createSubjectsList,
+  createSubjects,
 };

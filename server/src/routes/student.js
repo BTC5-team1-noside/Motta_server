@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const knex = require('./knex.js');
 const moment = require('moment-timezone');
-const { createSubjectsList } = require('./helpers.js');
+const { createSubjects } = require('./helpers.js');
 const {
-  checkHistory,
-  getSubjectList,
-  createItems,
+  checkTimetablesHistory,
+  getMergeSubjectId,
+  getItemNames,
   getConfirmsHistory,
-} = require('./api.js');
+} = require('./dataAccess.js');
 
 // 🚀1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
 router.get('/timetables-history/:date', async (req, res) => {
@@ -16,25 +16,29 @@ router.get('/timetables-history/:date', async (req, res) => {
   let dateOrDay = { date: date };
   let itemsTableName = 'items_history';
 
-  const historys = await checkHistory(date); // 'timetables_history'にデータあるかチェック
+  const timeTablesHistory = await checkTimetablesHistory(date); // 'timetables_history'にデータあるかチェック
 
-  // 履歴がない時
-  if (!historys.length) {
+  // 履歴がない時の設定変更
+  if (!timeTablesHistory.length) {
     tableName = 'timetables';
     dateOrDay = { day: moment(date).locale('ja').format('dd') };
     itemsTableName = 'items';
     date = '';
   }
 
-  const subjectList = await getSubjectList(dateOrDay, tableName);
-  const subjects = createSubjectsList(subjectList);
-  const items = await createItems(date, itemsTableName);
+  const subjectList = await getMergeSubjectId(dateOrDay, tableName);
+  const subjects = createSubjects(subjectList);
+  const [itemNames, additionalItemNames] = await getItemNames(
+    date,
+    itemsTableName
+  );
 
   // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
   const result = {
     selectedDate: date,
     subjects: subjects,
-    items: items,
+    itemNames: itemNames,
+    additionalItemNames: additionalItemNames,
   };
 
   try {
@@ -52,14 +56,14 @@ router.get('/timetables-history/:date', async (req, res) => {
 router.get('/confirms-history', async (req, res) => {
   const studentId = req.query.student_id;
   const date = req.query.date;
-  let dayList = [];
+  let dateList = [];
 
   if (date) {
     // 2023-12-18の日付を2023-12に変換
     const splitDate = date.split('-');
     const formatDate = splitDate[0] + '-' + splitDate[1] + '%';
     const tableName = 'confirms_history';
-    const isExactMatch = false;
+    const isExactMatch = false; // 部分一致
 
     const confirmsHistory = await getConfirmsHistory(
       studentId,
@@ -69,14 +73,14 @@ router.get('/confirms-history', async (req, res) => {
     );
 
     // 日付データを日本時間に変換して配列に格納
-    dayList = confirmsHistory.map((el) =>
+    dateList = confirmsHistory.map((el) =>
       moment.utc(el.date).tz('Asia/Tokyo').format('YYYY-MM-DD')
     );
   }
 
   try {
     console.log('2.GET:カレンダーにスタンプを一覧表示したい');
-    res.status(200).send(dayList);
+    res.status(200).send(dateList);
   } catch (error) {
     console.error(error);
     res.status(500).send('サーバーエラーです');
@@ -88,7 +92,7 @@ router.post('/confirms-history', async (req, res) => {
   const studentId = req.body.student_id;
   const checkDate = req.body.date;
   const tableName = 'confirms_history';
-  const isExactMatch = true;
+  const isExactMatch = true; // 完全一致
 
   const confirmsHistory = await getConfirmsHistory(
     studentId,
@@ -106,7 +110,7 @@ router.post('/confirms-history', async (req, res) => {
 
     try {
       console.log('3.POST:カレンダーにスタンプを押す');
-      res.status(200).send('新規データなので保存します');
+      res.status(200).send('新規データなので保存しました');
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
