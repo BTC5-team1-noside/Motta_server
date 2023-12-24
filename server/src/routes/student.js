@@ -74,6 +74,8 @@ router.get('/confirms-history', async (req, res) => {
       isExactMatch
     );
 
+    console.log(confirmsHistory);
+
     // 日付データを日本時間に変換して配列に格納
     dateList = confirmsHistory.map((el) =>
       moment.utc(el.date).tz('Asia/Tokyo').format('YYYY-MM-DD')
@@ -112,7 +114,7 @@ router.post('/confirms-history', async (req, res) => {
 
     try {
       console.log('3.POST:カレンダーにスタンプを押す');
-      res.status(200).send('新規データなので保存しました');
+      res.status(200).send('正常にデータを登録しました');
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
