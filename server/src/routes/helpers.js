@@ -1,8 +1,7 @@
 // ✨subjectsを作成用のヘルパー関数
 const createSubjects = (subjectList) => {
   const subjects = [];
-
-  console.log(subjectList);
+  //   console.log(subjectList);
 
   subjectList.forEach((el) => {
     const obj = {
@@ -13,7 +12,7 @@ const createSubjects = (subjectList) => {
 
     const periodArr = subjects.map((e) => e['period']);
     const index = periodArr.indexOf(el['period']);
-
+    // データが無ければ、objごとpushして、データが有ればobjの中のbelongingsに持ち物を追加
     if (index === -1) {
       subjects.push(obj);
     } else {

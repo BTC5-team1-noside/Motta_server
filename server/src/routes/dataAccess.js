@@ -6,7 +6,6 @@ const checkTimetablesHistory = async (date) =>
 
 // 🕹️dateを元に3つのテーブル(timetables_history,belongings,subjects)から時間割や持ち物データ取得
 const getMergeSubjectId = async (dateOrDay, tableName) => {
-  console.log(dateOrDay, tableName);
   const mergeSubjectIdList = await knex(tableName)
     .where(dateOrDay)
     .join('belongings', `${tableName}.subject_id`, '=', 'belongings.subject_id')
@@ -16,19 +15,24 @@ const getMergeSubjectId = async (dateOrDay, tableName) => {
 };
 
 // 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得
-const getItemNames = async (date, tableName) => {
+const getItemNames = async (dateOrDay, tableName, dataCheck) => {
+  console.log('dateOrDay', dateOrDay, tableName);
   let itemList = [];
   let additionalItemList = [];
 
-  if (date) {
-    itemList = await knex(tableName).where({
-      date: date,
-      everyday_items: true,
-    });
-    additionalItemList = await knex(tableName).where({
-      date: date,
-      everyday_items: false,
-    });
+  if (dataCheck) {
+    itemList = await knex(tableName)
+      .where({
+        everyday_items: true,
+      })
+      .where(dateOrDay);
+    additionalItemList = await knex(tableName)
+      .where({
+        everyday_items: false,
+      })
+      .where(dateOrDay);
+  } else {
+    itemList = await knex(tableName);
   }
 
   const itemNames = itemList.map((el) => el['item_name']);

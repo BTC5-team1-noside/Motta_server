@@ -15,6 +15,7 @@ router.get('/timetables-history/:date', async (req, res) => {
   let tableName = 'timetables_history';
   let dateOrDay = { date: date };
   let itemsTableName = 'items_history';
+  let dataCheck = true;
 
   const timeTablesHistory = await checkTimetablesHistory(date); // 'timetables_history'にデータあるかチェック
 
@@ -23,14 +24,15 @@ router.get('/timetables-history/:date', async (req, res) => {
     tableName = 'timetables';
     dateOrDay = { day: moment(date).locale('ja').format('dd') };
     itemsTableName = 'items';
-    date = '';
+    dataCheck = false;
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
   const subjects = createSubjects(subjectList);
   const [itemNames, additionalItemNames] = await getItemNames(
-    date,
-    itemsTableName
+    dateOrDay,
+    itemsTableName,
+    dataCheck
   );
 
   // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
