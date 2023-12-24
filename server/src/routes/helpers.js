@@ -22,10 +22,8 @@ const createSubjects = (subjectList) => {
   return subjects;
 };
 
-// timetables-historyテーブルに保存するデータ
+// ✨timetables_historyテーブルに保存するデータ
 const createInsertTimeTablesHistory = (bodySubjects, subjectNames, date) => {
-  //   console.log('subjectNames', subjectNames);
-  //   console.log('bodySubjects', bodySubjects);
   return bodySubjects.reduce((a, b) => {
     a.push({
       subject_id: subjectNames.indexOf(b['subject_name']) + 1,
@@ -36,9 +34,8 @@ const createInsertTimeTablesHistory = (bodySubjects, subjectNames, date) => {
   }, []);
 };
 
+// ✨items_historyテーブルに保存するデータ
 const createInsertItemsHistory = (bodyItems, everydayItems, date) => {
-  // items_historyテーブルに保存する日常品のデータ
-  console.log(bodyItems, everydayItems, date);
   const insertItemsHistory = [];
 
   bodyItems.forEach((el) => {

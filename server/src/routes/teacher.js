@@ -12,7 +12,7 @@ const {
 } = require('./dataAccess.js');
 const knex = require('./knex.js');
 
-// 1.GET:持ち物登録画面で各曜日に設定された教科を呼び出して表示したい
+// 🚀1.GET:持ち物登録画面で各曜日に設定された教科を呼び出して表示したい
 router.get('/subjects/:date', async (req, res) => {
   let date = req.params.date;
   let tableName = 'timetables_history';
@@ -55,8 +55,8 @@ router.get('/subjects/:date', async (req, res) => {
   }
 });
 
-// 2.POST:持ち物登録画面で、その日の科目を新規登録したい。
-router.post('/timetable-history/:date', async (req, res) => {
+// 🚀2.POST:持ち物登録画面で、その日の科目を新規登録したい。
+router.post('/timetables-history/:date', async (req, res) => {
   const date = req.params.date;
   const bodySubjects = req.body.subjects;
   const bodyItems = req.body.itemNames;
@@ -103,17 +103,58 @@ router.post('/timetable-history/:date', async (req, res) => {
   }
 });
 
-// 3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。
-router.patch('/timetable-history/:date', async (req, res) => {
+// 🚀3.PATCH:持ち物登録画面で、その日の科目と日常品を変更したい。
+router.patch('/timetables-history/:date', async (req, res) => {
   const date = req.params.date;
+  const bodySubjects = req.body.subjects;
+  const bodyItems = req.body.itemNames;
+  const bodyAdditionalItemNames = req.body.additionalItemNames;
 
-  try {
-    console.log('3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。');
-    console.log('bodyは？', req.body);
-    res.status(200).send('TeacherのPATCH受け取りました');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('サーバーエラーです');
+  // データがあるかチェック
+  const timeTablesHistory = await checkTimetablesHistory(date);
+
+  // 同じ日付のデータがtimetable-historyテーブルに存在しない時だけ新規登録する
+  if (timeTablesHistory.length === 0) {
+    // bodyのsubject_nameをsubject_idに変換するために、subjectsのsubject_nameだけの配列を準備
+    const subjectsData = await knex('subjects');
+    const subjectNames = subjectsData.map((el) => el['subject_name']);
+
+    const insertTimeTablesHistory = await createInsertTimeTablesHistory(
+      bodySubjects,
+      subjectNames,
+      date
+    );
+
+    // items_historyテーブルに保存する日常品のデータ
+    const insertItems = createInsertItemsHistory(bodyItems, true, date);
+    // items_historyテーブルに保存する追加の持ち物データ
+    const insertAdditionalItems = createInsertItemsHistory(
+      bodyAdditionalItemNames,
+      false,
+      date
+    );
+
+    const insertItemsHistory = [...insertItems, ...insertAdditionalItems];
+
+    // dateが一致するデータを全て削除してから、新しいデータを挿入する
+    await knex('timetables_history').where({ date: date }).del();
+    await knex('items_history').where({ date: date }).del();
+
+    // データ挿入
+    await knex('timetables_history').insert(insertTimeTablesHistory);
+    await knex('items_history').insert(insertItemsHistory);
+
+    try {
+      console.log(
+        '3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。'
+      );
+      res.status(200).send('TeacherのPATCH受け取りました');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('サーバーエラーです');
+    }
+  } else {
+    res.status(409).send('データが既に存在するので保存しません');
   }
 });
 
