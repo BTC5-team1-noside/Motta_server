@@ -16,16 +16,16 @@ exports.seed = async function (knex) {
 
   // seed挿入
   await knex('subjects').insert([
-    { subject_name: '国語' },
-    { subject_name: '算数' },
-    { subject_name: '理科' },
-    { subject_name: '社会' },
-    { subject_name: '英語' },
-    { subject_name: '体育' },
-    { subject_name: '図工' },
-    { subject_name: '音楽' },
-    { subject_name: '書写' },
-    { subject_name: '総合' },
-    { subject_name: '道徳' },
+    { subject_name: 'こくご' },
+    { subject_name: 'さんすう' },
+    { subject_name: 'りか' },
+    { subject_name: 'しゃかい' },
+    { subject_name: 'えいご' },
+    { subject_name: 'たいいく' },
+    { subject_name: 'ずこう' },
+    { subject_name: 'おんがく' },
+    { subject_name: 'しょしゃ' },
+    { subject_name: 'そうごう' },
+    { subject_name: 'どうとく' },
   ]);
 };

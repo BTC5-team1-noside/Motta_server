@@ -2,6 +2,8 @@
 const createSubjects = (subjectList) => {
   const subjects = [];
 
+  console.log(subjectList);
+
   subjectList.forEach((el) => {
     const obj = {
       period: el['period'],

@@ -6,6 +6,7 @@ const checkTimetablesHistory = async (date) =>
 
 // 🕹️dateを元に3つのテーブル(timetables_history,belongings,subjects)から時間割や持ち物データ取得
 const getMergeSubjectId = async (dateOrDay, tableName) => {
+  console.log(dateOrDay, tableName);
   const mergeSubjectIdList = await knex(tableName)
     .where(dateOrDay)
     .join('belongings', `${tableName}.subject_id`, '=', 'belongings.subject_id')

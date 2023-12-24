@@ -14,10 +14,22 @@ exports.seed = async function (knex) {
 
   // seed挿入
   await knex('students').insert([
-    { student_name: 'ごろう' },
     { student_name: 'りょーぞー' },
     { student_name: 'しょうご' },
-    { student_name: 'ごん' },
+    { student_name: 'ごんちゃん' },
     { student_name: 'ゆうすけ' },
+    { student_name: 'しゅん' },
+    { student_name: 'たなちゅー' },
+    { student_name: 'まあや' },
+    { student_name: 'ぶっちー' },
+    { student_name: 'くのくの' },
+    { student_name: 'はっしー' },
+    { student_name: 'たか' },
+    { student_name: 'たつ' },
+    { student_name: 'なお' },
+    { student_name: 'じん' },
+    { student_name: 'みゅう' },
+    { student_name: 'おがちゃん' },
+    { student_name: 'ごろう' },
   ]);
 };

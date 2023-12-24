@@ -30,6 +30,7 @@ router.get('/subjects/:date', async (req, res) => {
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
+  console.log(subjectList);
   const subjects = createSubjects(subjectList);
   const [itemNames, additionalItemNames] = await getItemNames(
     date,
