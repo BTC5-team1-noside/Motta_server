@@ -1,11 +1,16 @@
 const router = require('express').Router();
 const moment = require('moment-timezone');
-const { createSubjects } = require('./helpers.js');
+const {
+  createSubjects,
+  createInsertTimeTablesHistory,
+  createInsertItemsHistory,
+} = require('./helpers.js');
 const {
   checkTimetablesHistory,
   getMergeSubjectId,
   getItemNames,
 } = require('./dataAccess.js');
+const knex = require('./knex.js');
 
 // 1.GET:持ち物登録画面で各曜日に設定された教科を呼び出して表示したい
 router.get('/subjects/:date', async (req, res) => {
@@ -53,34 +58,48 @@ router.get('/subjects/:date', async (req, res) => {
 // 2.POST:持ち物登録画面で、その日の科目を新規登録したい。
 router.post('/timetable-history/:date', async (req, res) => {
   const date = req.params.date;
+  const bodySubjects = req.body.subjects;
+  const bodyItems = req.body.itemNames;
+  const bodyAdditionalItemNames = req.body.additionalItemNames;
 
-  // データがあるか
+  // データがあるかチェック
+  const timeTablesHistory = await checkTimetablesHistory(date);
 
-  // データベースに存在しない場合のみ挿入する
-  if (confirmsHistory.length === 0) {
-    await knex('confirms_history').insert({
-      student_id: studentId,
-      date: checkDate,
-    });
+  // bodyのsubject_nameをsubject_idに変換するために、subjectsのsubject_nameだけの配列を準備
+  const subjectsData = await knex('subjects');
+  const subjectNames = subjectsData.map((el) => el['subject_name']);
+
+  const insertTimeTablesHistory = await createInsertTimeTablesHistory(
+    bodySubjects,
+    subjectNames,
+    date
+  );
+
+  // items_historyテーブルに保存する日常品のデータ
+  const insertItems = createInsertItemsHistory(bodyItems, true, date);
+  // items_historyテーブルに保存する追加の持ち物データ
+  const insertAdditionalItems = createInsertItemsHistory(
+    bodyAdditionalItemNames,
+    false,
+    date
+  );
+
+  const insertItemsHistory = [...insertItems, ...insertAdditionalItems];
+
+  // 同じ日付のデータがtimetable-historyテーブルに存在しない時だけ新規登録する
+  if (timeTablesHistory.length === 0) {
+    await knex('timetables_history').insert(insertTimeTablesHistory);
+    await knex('items_history').insert(insertItemsHistory);
 
     try {
-      console.log('3.POST:カレンダーにスタンプを押す');
-      res.status(200).send('新規データなので保存します');
+      console.log('2.POST:持ち物登録画面で、その日の科目を新規登録したい。');
+      res.status(200).send('TeacherのPOST受け取りました');
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
     }
   } else {
     res.status(409).send('データが既に存在するので保存しません');
-  }
-
-  try {
-    console.log('2.POST:持ち物登録画面で、その日の科目を新規登録したい。');
-    console.log('bodyは？', req.body);
-    res.status(200).send('TeacherのPOST受け取りました');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('サーバーエラーです');
   }
 });
 

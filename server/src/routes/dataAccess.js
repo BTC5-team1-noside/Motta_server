@@ -16,28 +16,24 @@ const getMergeSubjectId = async (dateOrDay, tableName) => {
 
 // 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得
 const getItemNames = async (date, tableName) => {
-  let itemList;
+  let itemList = [];
+  let additionalItemList = [];
 
   if (date) {
-    itemList = await knex(tableName).where({ date: date });
-  } else {
-    itemList = await knex(tableName);
+    itemList = await knex(tableName).where({
+      date: date,
+      everyday_items: true,
+    });
+    additionalItemList = await knex(tableName).where({
+      date: date,
+      everyday_items: false,
+    });
   }
 
-  const allItems = itemList.reduce(
-    ([itemNames, additionalItemNames], b) => {
-      // undefined回避でtrue,false等値比較してます
-      if (b['everyday_items'] === true) {
-        itemNames = [...itemNames, b['item_name']];
-      } else if (b['everyday_items'] === false) {
-        additionalItemNames = [...additionalItemNames, b['item_name']];
-      }
-      return [itemNames, additionalItemNames];
-    },
-    [[], []]
-  );
+  const itemNames = itemList.map((el) => el['item_name']);
+  const additionalItemNames = additionalItemList.map((el) => el['item_name']);
 
-  return allItems;
+  return [itemNames, additionalItemNames];
 };
 
 // 🕹️年と月の部分一致で日付データを複数取得
@@ -56,6 +52,8 @@ const getConfirmsHistory = async (studentId, date, tableName, isExactMatch) => {
       .whereRaw("to_char(date, 'YYYY-MM') like ?", [date]);
   }
 };
+
+// const
 
 module.exports = {
   checkTimetablesHistory,

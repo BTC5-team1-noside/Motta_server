@@ -61,7 +61,7 @@ router.get('/confirms-history', async (req, res) => {
   if (date) {
     // 2023-12-18の日付を2023-12に変換
     const splitDate = date.split('-');
-    const formatDate = splitDate[0] + '-' + splitDate[1] + '%';
+    const formatDate = splitDate[0] + '-' + splitDate[1].padStart(2, '0') + '%';
     const tableName = 'confirms_history';
     const isExactMatch = false; // 部分一致
 
