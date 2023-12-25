@@ -6,6 +6,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('items', function (table) {
     table.increments('id').primary();
     table.string('item_name');
+    table.string('day');
   });
 };
 

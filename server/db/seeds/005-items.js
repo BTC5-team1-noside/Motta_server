@@ -11,8 +11,9 @@ exports.seed = async function (knex) {
   // テーブル削除とseed挿入
   await knex('items').del();
   await knex('items').insert([
-    { item_name: 'ふでばこ' },
-    { item_name: 'きゅうしょくセット' },
-    { item_name: 'うわばき' },
+    { item_name: 'ふでばこ', day: '全' },
+    { item_name: 'はしセット', day: '全' },
+    { item_name: 'うわばき', day: '月' },
+    { item_name: 'エプロン', day: '月' },
   ]);
 };
