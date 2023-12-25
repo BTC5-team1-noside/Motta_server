@@ -58,7 +58,7 @@ router.get('/timetables-history/:date', async (req, res) => {
 router.get('/confirms-history', async (req, res) => {
   const studentId = req.query.student_id;
   const date = req.query.date;
-  let dateList = [];
+  let JSTdates = [];
 
   if (date) {
     // 2023-12-18の日付を2023-12に変換
@@ -74,17 +74,15 @@ router.get('/confirms-history', async (req, res) => {
       isExactMatch
     );
 
-    console.log(confirmsHistory);
-
     // 日付データを日本時間に変換して配列に格納
-    dateList = confirmsHistory.map((el) =>
+    JSTdates = confirmsHistory.map((el) =>
       moment.utc(el.date).tz('Asia/Tokyo').format('YYYY-MM-DD')
     );
   }
 
   try {
     console.log('2.GET:カレンダーにスタンプを一覧表示したい');
-    res.status(200).send(dateList);
+    res.status(200).send(JSTdates);
   } catch (error) {
     console.error(error);
     res.status(500).send('サーバーエラーです');

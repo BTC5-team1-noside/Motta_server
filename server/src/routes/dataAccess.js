@@ -6,37 +6,38 @@ const checkTimetablesHistory = async (date) =>
 
 // 🕹️dateを元に3つのテーブル(timetables_history,belongings,subjects)から時間割や持ち物データ取得
 const getMergeSubjectId = async (dateOrDay, tableName) => {
-  const mergeSubjectIdList = await knex(tableName)
+  return await knex(tableName)
     .where(dateOrDay)
     .join('belongings', `${tableName}.subject_id`, '=', 'belongings.subject_id')
-    .join('subjects', `${tableName}.subject_id`, '=', 'subjects.id');
-
-  return mergeSubjectIdList.sort((a, b) => a['period'] - b['period']); // 時間割順に並び替える
+    .join('subjects', `${tableName}.subject_id`, '=', 'subjects.id')
+    .orderBy('period', 'asc');
 };
 
 // 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得
 const getItemNames = async (dateOrDay, tableName, dataCheck) => {
-  console.log('dateOrDay', dateOrDay, tableName);
-  let itemList = [];
-  let additionalItemList = [];
+  let itemNames = [];
+  let additionalItemNames = [];
 
   if (dataCheck) {
-    itemList = await knex(tableName)
+    itemNames = await knex(tableName)
       .where({
         everyday_items: true,
       })
-      .where(dateOrDay);
-    additionalItemList = await knex(tableName)
+      .where(dateOrDay)
+      .pluck('item_name');
+    additionalItemNames = await knex(tableName)
       .where({
         everyday_items: false,
       })
-      .where(dateOrDay);
+      .where(dateOrDay)
+      .pluck('item_name');
   } else {
-    itemList = await knex(tableName);
+    itemNames = await knex(tableName)
+      .where({ day: '全' })
+      .orWhere(dateOrDay)
+      .pluck('item_name');
+    console.log(dateOrDay);
   }
-
-  const itemNames = itemList.map((el) => el['item_name']);
-  const additionalItemNames = additionalItemList.map((el) => el['item_name']);
 
   return [itemNames, additionalItemNames];
 };
@@ -57,8 +58,6 @@ const getConfirmsHistory = async (studentId, date, tableName, isExactMatch) => {
       .whereRaw("to_char(date, 'YYYY-MM') like ?", [date]);
   }
 };
-
-// const
 
 module.exports = {
   checkTimetablesHistory,

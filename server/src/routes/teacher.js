@@ -31,7 +31,6 @@ router.get('/subjects/:date', async (req, res) => {
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
-  console.log(subjectList);
   const subjects = createSubjects(subjectList);
   const [itemNames, additionalItemNames] = await getItemNames(
     dateOrDay,
@@ -69,8 +68,7 @@ router.post('/timetables-history/:date', async (req, res) => {
   const timeTablesHistory = await checkTimetablesHistory(date);
 
   // bodyのsubject_nameをsubject_idに変換するために、subjectsのsubject_nameだけの配列を準備
-  const subjectsData = await knex('subjects');
-  const subjectNames = subjectsData.map((el) => el['subject_name']);
+  const subjectNames = await knex('subjects').pluck('subject_name');
 
   const insertTimeTablesHistory = await createInsertTimeTablesHistory(
     bodySubjects,
@@ -119,8 +117,7 @@ router.patch('/timetables-history/:date', async (req, res) => {
   // 同じ日付のデータがtimetable-historyテーブルに存在しない時だけ新規登録する
   if (timeTablesHistory.length !== 0) {
     // bodyのsubject_nameをsubject_idに変換するために、subjectsのsubject_nameだけの配列を準備
-    const subjectsData = await knex('subjects');
-    const subjectNames = subjectsData.map((el) => el['subject_name']);
+    const subjectNames = await knex('subjects').pluck('subject_name');
 
     const insertTimeTablesHistory = await createInsertTimeTablesHistory(
       bodySubjects,

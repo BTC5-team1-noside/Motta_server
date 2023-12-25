@@ -1,7 +1,6 @@
-// ✨subjectsを作成用のヘルパー関数
+// ✨subjectsの作成用
 const createSubjects = (subjectList) => {
   const subjects = [];
-  //   console.log(subjectList);
 
   subjectList.forEach((el) => {
     const obj = {
@@ -25,29 +24,20 @@ const createSubjects = (subjectList) => {
 
 // ✨timetables_historyテーブルに保存するデータ
 const createInsertTimeTablesHistory = (bodySubjects, subjectNames, date) => {
-  return bodySubjects.reduce((a, b) => {
-    a.push({
-      subject_id: subjectNames.indexOf(b['subject_name']) + 1,
-      period: b['period'],
-      date: date,
-    });
-    return a;
-  }, []);
+  return bodySubjects.map((el) => ({
+    subject_id: subjectNames.indexOf(el['subject_name']) + 1,
+    period: el['period'],
+    date: date,
+  }));
 };
 
 // ✨items_historyテーブルに保存するデータ
 const createInsertItemsHistory = (bodyItems, everydayItems, date) => {
-  const insertItemsHistory = [];
-
-  bodyItems.forEach((el) => {
-    insertItemsHistory.push({
-      item_name: el,
-      everyday_items: everydayItems,
-      date: date,
-    });
-  });
-
-  return insertItemsHistory;
+  return bodyItems.map((el) => ({
+    item_name: el,
+    everyday_items: everydayItems,
+    date: date,
+  }));
 };
 
 module.exports = {
