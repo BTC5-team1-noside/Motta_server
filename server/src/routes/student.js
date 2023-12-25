@@ -1,58 +1,127 @@
 const router = require('express').Router();
 const knex = require('./knex.js');
+const moment = require('moment-timezone');
+const { createSubjects } = require('./helpers.js');
+const {
+  checkTimetablesHistory,
+  getMergeSubjectId,
+  getItemNames,
+  getConfirmsHistory,
+} = require('./dataAccess.js');
 
-// 1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
-router.get('/timetable-history/:date', async (req, res) => {
-  const date = req.params.date;
-  const obj = {
-    selectedDate: '2023-12-20',
-    subjects: [
-      {
-        period: 1,
-        subject: '国語',
-        belongings: ['国語の教科書', '漢字ドリル', '国語のノート'],
-      },
-      {
-        period: 2,
-        subject: '算数',
-        belongings: ['算数の教科書', '算数ドリル', '算数のノート', 'そろばん'],
-      },
-    ],
-    items: ['体操着', 'エプロン', '箸入れ'],
+// 🚀1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する
+router.get('/timetables-history/:date', async (req, res) => {
+  let date = req.params.date;
+  let tableName = 'timetables_history';
+  let dateOrDay = { date: date };
+  let itemsTableName = 'items_history';
+  let dataCheck = true;
+
+  const timeTablesHistory = await checkTimetablesHistory(date); // 'timetables_history'にデータあるかチェック
+
+  // 履歴がない時の設定変更
+  if (!timeTablesHistory.length) {
+    tableName = 'timetables';
+    dateOrDay = { day: moment(date).locale('ja').format('dd') };
+    itemsTableName = 'items';
+    dataCheck = false;
+  }
+
+  const subjectList = await getMergeSubjectId(dateOrDay, tableName);
+  const subjects = createSubjects(subjectList);
+  const [itemNames, additionalItemNames] = await getItemNames(
+    dateOrDay,
+    itemsTableName,
+    dataCheck
+  );
+
+  // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
+  const result = {
+    selectedDate: date,
+    subjects: subjects,
+    itemNames: itemNames,
+    additionalItemNames: additionalItemNames,
   };
 
   try {
     console.log(
       '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する'
     );
-    console.log('dateは:', date);
-    res.status(200).send(obj);
-  } catch (error) {}
+    res.status(200).send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
 });
 
-// 2.GET:カレンダーにスタンプを一覧表示したい
-router.get('/confirm-history/:date', async (req, res) => {
-  const date = req.params.date || '2023-12-13';
-  const arr = [
-    ['2023-12-18', '2023-12-19', '2023-12-20', '2023-12-21', '2023-12-22'],
-  ];
-  // arrを使って、フロントで該当する日付にスタンプを表示してください
+// 🚀2.GET:カレンダーにスタンプを一覧表示したい
+router.get('/confirms-history', async (req, res) => {
+  const studentId = req.query.student_id;
+  const date = req.query.date;
+  let dateList = [];
+
+  if (date) {
+    // 2023-12-18の日付を2023-12に変換
+    const splitDate = date.split('-');
+    const formatDate = splitDate[0] + '-' + splitDate[1].padStart(2, '0') + '%';
+    const tableName = 'confirms_history';
+    const isExactMatch = false; // 部分一致
+
+    const confirmsHistory = await getConfirmsHistory(
+      studentId,
+      formatDate,
+      tableName,
+      isExactMatch
+    );
+
+    console.log(confirmsHistory);
+
+    // 日付データを日本時間に変換して配列に格納
+    dateList = confirmsHistory.map((el) =>
+      moment.utc(el.date).tz('Asia/Tokyo').format('YYYY-MM-DD')
+    );
+  }
+
   try {
     console.log('2.GET:カレンダーにスタンプを一覧表示したい');
-    console.log('dateは:', date);
-    res.status(200).send(arr);
-  } catch (error) {}
+    res.status(200).send(dateList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
 });
 
-// 3.POST:カレンダーにスタンプを押す
-router.post('/confirm-history/:date', async (req, res) => {
-  const dateObj = req.body; // 想定body: {id: 1, date: "2023-12-18"}
+// 🚀3.POST:カレンダーにスタンプを押す
+router.post('/confirms-history', async (req, res) => {
+  const studentId = req.body.student_id;
+  const checkDate = req.body.date;
+  const tableName = 'confirms_history';
+  const isExactMatch = true; // 完全一致
 
-  try {
-    console.log('3.POST:カレンダーにスタンプを押す');
-    console.log('dateObjは:', dateObj);
-    res.status(200).send('POST成功〜');
-  } catch (error) {}
+  const confirmsHistory = await getConfirmsHistory(
+    studentId,
+    checkDate,
+    tableName,
+    isExactMatch
+  );
+
+  // データベースに存在しない場合のみ挿入する
+  if (confirmsHistory.length === 0) {
+    await knex('confirms_history').insert({
+      student_id: studentId,
+      date: checkDate,
+    });
+
+    try {
+      console.log('3.POST:カレンダーにスタンプを押す');
+      res.status(200).send('正常にデータを登録しました');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('サーバーエラーです');
+    }
+  } else {
+    res.status(409).send('データが既に存在するので保存しません');
+  }
 });
 
 module.exports = router;

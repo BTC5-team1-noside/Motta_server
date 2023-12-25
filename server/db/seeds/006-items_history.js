@@ -3,27 +3,136 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
+  // インクリメントでidがズレるのを防ぐ。シーケンスのリセット（次に生成されるidの値を1に設定）
+  await knex.raw("SELECT setval('items_history_id_seq', 1, false)").then(() => {
+    console.log('items_historyのシーケンスをリセットしました');
+  });
+
+  // テーブル削除とseed挿入
   await knex('items_history').del();
   await knex('items_history').insert([
-    { item_name: 'エプロン', date: '2023-12-18' },
-    { item_name: 'ランチョンマット', date: '2023-12-18' },
-    { item_name: '箸入れ', date: '2023-12-18' },
-    { item_name: '筆箱', date: '2023-12-18' },
-    { item_name: '体操着', date: '2023-12-19' },
-    { item_name: 'トイレットペーパー', date: '2023-12-19' },
-    { item_name: 'エプロン', date: '2023-12-20' },
-    { item_name: 'ランチョンマット', date: '2023-12-20' },
-    { item_name: '箸入れ', date: '2023-12-20' },
-    { item_name: '筆箱', date: '2023-12-20' },
-    { item_name: '三角定規', date: '2023-12-20' },
-    { item_name: '保護者会のプリント', date: '2023-12-20' },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-01' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-01',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-01' },
+    {
+      item_name: 'ほごしゃかいのプリント',
+      everyday_items: false,
+      date: '2023-12-01',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-04' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-04',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-04' },
+    { item_name: 'たいそうふく', everyday_items: false, date: '2023-12-04' },
+    {
+      item_name: 'たいいくかんシューズ',
+      everyday_items: false,
+      date: '2023-12-04',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-05' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-05',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-05' },
+    {
+      item_name: 'はさみ',
+      everyday_items: false,
+      date: '2023-12-05',
+    },
+    {
+      item_name: 'のり',
+      everyday_items: false,
+      date: '2023-12-05',
+    },
+    {
+      item_name: 'いろえんぴつ',
+      everyday_items: false,
+      date: '2023-12-05',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-06' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-06',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-06' },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-07' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-07',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-07' },
+    {
+      item_name: 'ベルマーク',
+      everyday_items: false,
+      date: '2023-12-07',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-08' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-08',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-08' },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-11' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-11',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-11' },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-12' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-12',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-12' },
+    {
+      item_name: 'さんかくじょうぎ',
+      everyday_items: false,
+      date: '2023-12-12',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-13' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-13',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-13' },
+    {
+      item_name: 'あかいはねぼきん',
+      everyday_items: false,
+      date: '2023-12-13',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-14' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-14',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-14' },
+    {
+      item_name: 'トイレットペーパー',
+      everyday_items: false,
+      date: '2023-12-14',
+    },
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-15' },
+    {
+      item_name: 'きゅうしょくセット',
+      everyday_items: true,
+      date: '2023-12-15',
+    },
+    { item_name: 'うわばき', everyday_items: true, date: '2023-12-15' },
   ]);
-
-  // シーケンスのリセット（次に生成される値を1に設定）
-  return knex
-    .raw("SELECT setval('items_history_id_seq', 1, false)")
-    .then(() => {
-      console.log('items_historyのシーケンスをリセットしました');
-    });
 };
