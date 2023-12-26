@@ -28,7 +28,7 @@ router.get('/timetables-history/:date', async (req, res) => {
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
-  const subjects = createSubjects(subjectList);
+  const subjects = createSubjects(subjectList, 'period');
   const [itemNames, additionalItemNames] = await getItemNames(
     dateOrDay,
     itemsTableName,
@@ -45,9 +45,6 @@ router.get('/timetables-history/:date', async (req, res) => {
   };
 
   try {
-    console.log(
-      '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する'
-    );
     res.status(200).send(result);
   } catch (error) {
     console.error(error);
@@ -82,7 +79,6 @@ router.get('/confirms-history', async (req, res) => {
   }
 
   try {
-    console.log('2.GET:カレンダーにスタンプを一覧表示したい');
     res.status(200).send(JSTdates);
   } catch (error) {
     console.error(error);
@@ -112,7 +108,6 @@ router.post('/confirms-history', async (req, res) => {
     });
 
     try {
-      console.log('3.POST:カレンダーにスタンプを押す');
       res.status(200).send('正常にデータを登録しました');
     } catch (error) {
       console.error(error);

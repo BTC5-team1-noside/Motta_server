@@ -68,10 +68,20 @@ const getMergeTimetables = async () => {
   );
 };
 
+const getMergeBelongings = async () => {
+  return await knex('belongings').join(
+    'subjects',
+    'belongings.subject_id',
+    '=',
+    'subjects.id'
+  );
+};
+
 module.exports = {
   checkTimetablesHistory,
   getMergeSubjectId,
   getItemNames,
   getConfirmsHistory,
   getMergeTimetables,
+  getMergeBelongings,
 };

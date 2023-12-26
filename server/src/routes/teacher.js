@@ -4,13 +4,14 @@ const {
   createSubjects,
   createInsertTimeTablesHistory,
   createInsertItemsHistory,
-  createSchedule,
+  createTimetables,
 } = require('./helpers.js');
 const {
   checkTimetablesHistory,
   getMergeSubjectId,
   getItemNames,
   getMergeTimetables,
+  getMergeBelongings,
 } = require('./dataAccess.js');
 const knex = require('./knex.js');
 
@@ -33,7 +34,7 @@ router.get('/subjects/:date', async (req, res) => {
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
-  const subjects = createSubjects(subjectList);
+  const subjects = createSubjects(subjectList, 'period');
   const [itemNames, additionalItemNames] = await getItemNames(
     dateOrDay,
     itemsTableName,
@@ -50,9 +51,6 @@ router.get('/subjects/:date', async (req, res) => {
   };
 
   try {
-    console.log(
-      '1.GET:持ち物登録画面で各曜日に設定された教科を呼び出して表示したい'
-    );
     res.status(200).send(result);
   } catch (error) {
     console.error(error);
@@ -96,7 +94,6 @@ router.post('/timetables-history/:date', async (req, res) => {
     await knex('items_history').insert(insertItemsHistory);
 
     try {
-      console.log('2.POST:持ち物登録画面で、その日の科目を新規登録したい。');
       res.status(200).send('正常にデータを登録しました');
     } catch (error) {
       console.error(error);
@@ -148,9 +145,6 @@ router.patch('/timetables-history/:date', async (req, res) => {
     await knex('items_history').insert(insertItemsHistory);
 
     try {
-      console.log(
-        '3.PATCH:持ち物登録画面で、その日の科目と日常品を追加したい。'
-      );
       res.status(200).send('正常にデータを更新しました');
     } catch (error) {
       console.error(error);
@@ -162,11 +156,10 @@ router.patch('/timetables-history/:date', async (req, res) => {
 });
 
 // 🚀4.GET:設定画面の生徒編集で生徒のデータを受け取りたい
-router.get('/students', async (req, res) => {
+router.get('/settings/students', async (_, res) => {
   const students = await knex('students');
 
   try {
-    console.log('4.GET:設定画面の生徒編集で生徒のデータを受け取りたい');
     res.status(200).send(students);
   } catch (error) {
     console.error(error);
@@ -175,14 +168,36 @@ router.get('/students', async (req, res) => {
 });
 
 // 🚀5.GET:設定画面の時間割編集で時間割のデータを受け取りたい
-router.get('/timetables', async (req, res) => {
+router.get('/settings/timetables', async (_, res) => {
   const timetableList = await getMergeTimetables();
   const subjectNames = await knex('subjects').pluck('subject_name');
-  const schedule = createSchedule(timetableList, subjectNames);
+  const timetables = createTimetables(timetableList, subjectNames);
 
   try {
-    console.log('5.GET:設定画面の時間割編集で時間割のデータを受け取りたい');
-    res.status(200).send(schedule);
+    res.status(200).send(timetables);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
+});
+
+// 🚀6.GET:設定画面の科目毎の持ち物編集で科目毎の持ち物のデータを受け取りたい
+router.get('/settings/belongings', async (_, res) => {
+  const belongingList = await getMergeBelongings();
+  const subjects = createSubjects(belongingList, 'subject_name');
+
+  try {
+    res.status(200).send(subjects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
+});
+
+// 🚀7.GET:設定画面の日常品編集で日常品のデータを受け取りたい
+router.get('/settings/items', async (_, res) => {
+  try {
+    res.status(200).send('subjects');
   } catch (error) {
     console.error(error);
     res.status(500).send('サーバーエラーです');

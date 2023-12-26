@@ -1,16 +1,16 @@
 // ✨subjectsの作成用
-const createSubjects = (subjectList) => {
+const createSubjects = (subjectList, subjectItem) => {
   const subjects = [];
 
   subjectList.forEach((el) => {
     const obj = {
-      period: el['period'],
+      [subjectItem]: el[subjectItem],
       subject_name: el['subject_name'],
       belongings: [el['belonging_name']],
     };
 
-    const periodArr = subjects.map((e) => e['period']);
-    const index = periodArr.indexOf(el['period']);
+    const periodArr = subjects.map((e) => e[subjectItem]);
+    const index = periodArr.indexOf(el[subjectItem]);
     // データが無ければ、objごとpushして、データが有ればobjの中のbelongingsに持ち物を追加
     if (index === -1) {
       subjects.push(obj);
@@ -40,8 +40,8 @@ const createInsertItemsHistory = (bodyItems, everydayItems, date) => {
   }));
 };
 
-// ✨scheduleの作成用
-const createSchedule = (timetableList, subjectNames) => {
+// ✨timetablesの作成用
+const createTimetables = (timetableList, subjectNames) => {
   const result = [];
 
   timetableList.forEach((el) => {
@@ -63,17 +63,17 @@ const createSchedule = (timetableList, subjectNames) => {
     }
   });
 
-  const schedule = {
+  const timetables = {
     timetableList: result,
     subjectNames: subjectNames,
   };
 
-  return schedule;
+  return timetables;
 };
 
 module.exports = {
   createSubjects,
   createInsertTimeTablesHistory,
   createInsertItemsHistory,
-  createSchedule,
+  createTimetables,
 };
