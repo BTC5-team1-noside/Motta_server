@@ -14,11 +14,11 @@ const getMergeSubjectId = async (dateOrDay, tableName) => {
 };
 
 // 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得
-const getItemNames = async (dateOrDay, tableName, dataCheck) => {
+const getItemNames = async (dateOrDay, tableName, isHistoryData) => {
   let itemNames = [];
   let additionalItemNames = [];
 
-  if (dataCheck) {
+  if (isHistoryData) {
     itemNames = await knex(tableName)
       .where({
         everyday_items: true,
@@ -59,9 +59,19 @@ const getConfirmsHistory = async (studentId, date, tableName, isExactMatch) => {
   }
 };
 
+const getMergeTimetables = async () => {
+  return await knex('timetables').join(
+    'subjects',
+    'timetables.subject_id',
+    '=',
+    'subjects.id'
+  );
+};
+
 module.exports = {
   checkTimetablesHistory,
   getMergeSubjectId,
   getItemNames,
   getConfirmsHistory,
+  getMergeTimetables,
 };

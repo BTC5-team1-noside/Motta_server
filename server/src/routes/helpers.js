@@ -40,8 +40,40 @@ const createInsertItemsHistory = (bodyItems, everydayItems, date) => {
   }));
 };
 
+// ✨scheduleの作成用
+const createSchedule = (timetableList, subjectNames) => {
+  const result = [];
+
+  timetableList.forEach((el) => {
+    const obj = {
+      day: el['day'],
+      subjects: [{ period: el['period'], subject_name: el['subject_name'] }],
+    };
+
+    const checkArr = result.map((e) => e['day']);
+    const index = checkArr.indexOf(el['day']);
+
+    if (index === -1) {
+      result.push(obj);
+    } else {
+      result[index]['subjects'].push({
+        period: el['period'],
+        subject_name: el['subject_name'],
+      });
+    }
+  });
+
+  const schedule = {
+    timetableList: result,
+    subjectNames: subjectNames,
+  };
+
+  return schedule;
+};
+
 module.exports = {
   createSubjects,
   createInsertTimeTablesHistory,
   createInsertItemsHistory,
+  createSchedule,
 };
