@@ -196,8 +196,10 @@ router.get('/settings/belongings', async (_, res) => {
 
 // 🚀7.GET:設定画面の日常品編集で日常品のデータを受け取りたい
 router.get('/settings/items', async (_, res) => {
+  const itemList = await knex('items');
+
   try {
-    res.status(200).send('subjects');
+    res.status(200).send(itemList);
   } catch (error) {
     console.error(error);
     res.status(500).send('サーバーエラーです');
