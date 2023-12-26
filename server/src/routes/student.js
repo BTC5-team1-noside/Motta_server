@@ -118,4 +118,16 @@ router.post('/confirms-history', async (req, res) => {
   }
 });
 
+// 🚀4.GET:HOMEに遷移したら生徒データを取得
+router.get('/home/students-data', async (_, res) => {
+  const students = await knex('students');
+
+  try {
+    res.status(200).send(students);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
+});
+
 module.exports = router;

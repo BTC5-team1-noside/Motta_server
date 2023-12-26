@@ -224,7 +224,7 @@ router.get('/settings/events', async (_, res) => {
 });
 
 // 🚀9.GET:HOME画面で先生と生徒のデータ登録履歴のデータを受け取りたい
-router.get('/home/checks-data', async (req, res) => {
+router.get('/home/history', async (req, res) => {
   const date =
     req.query.date || moment(new Date()).local('ja').format('YYYY-MM-DD');
 
