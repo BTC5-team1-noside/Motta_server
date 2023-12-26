@@ -15,7 +15,7 @@ router.get('/timetables-history/:date', async (req, res) => {
   let tableName = 'timetables_history';
   let dateOrDay = { date: date };
   let itemsTableName = 'items_history';
-  let dataCheck = true;
+  let isHistoryData = true;
 
   const timeTablesHistory = await checkTimetablesHistory(date); // 'timetables_history'にデータあるかチェック
 
@@ -24,19 +24,20 @@ router.get('/timetables-history/:date', async (req, res) => {
     tableName = 'timetables';
     dateOrDay = { day: moment(date).locale('ja').format('dd') };
     itemsTableName = 'items';
-    dataCheck = false;
+    isHistoryData = false;
   }
 
   const subjectList = await getMergeSubjectId(dateOrDay, tableName);
-  const subjects = createSubjects(subjectList);
+  const subjects = createSubjects(subjectList, 'period');
   const [itemNames, additionalItemNames] = await getItemNames(
     dateOrDay,
     itemsTableName,
-    dataCheck
+    isHistoryData
   );
 
   // 最後に日付と時間割の持ち物と日常品をまとめたresultを作成
   const result = {
+    isHistoryData: isHistoryData,
     selectedDate: date,
     subjects: subjects,
     itemNames: itemNames,
@@ -44,9 +45,6 @@ router.get('/timetables-history/:date', async (req, res) => {
   };
 
   try {
-    console.log(
-      '1.GET:翌日の各教科の持ち物の名前を受け取って音声で読み上げる、画面にもテキスト表示する'
-    );
     res.status(200).send(result);
   } catch (error) {
     console.error(error);
@@ -81,7 +79,6 @@ router.get('/confirms-history', async (req, res) => {
   }
 
   try {
-    console.log('2.GET:カレンダーにスタンプを一覧表示したい');
     res.status(200).send(JSTdates);
   } catch (error) {
     console.error(error);
@@ -111,7 +108,6 @@ router.post('/confirms-history', async (req, res) => {
     });
 
     try {
-      console.log('3.POST:カレンダーにスタンプを押す');
       res.status(200).send('正常にデータを登録しました');
     } catch (error) {
       console.error(error);
@@ -119,6 +115,18 @@ router.post('/confirms-history', async (req, res) => {
     }
   } else {
     res.status(409).send('データが既に存在するので保存しません');
+  }
+});
+
+// 🚀4.GET:HOMEに遷移したら生徒データを取得
+router.get('/home/students-data', async (_, res) => {
+  const students = await knex('students');
+
+  try {
+    res.status(200).send(students);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
   }
 });
 
