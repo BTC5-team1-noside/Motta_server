@@ -3,10 +3,10 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('confirms_history', function (table) {
+  return knex.schema.createTable('events', function (table) {
     table.increments('id').primary();
-    table.integer('student_id');
-    table.foreign('student_id').references('id').inTable('students');
+    table.string('event_name');
+    table.string('item_name');
     table.date('date');
   });
 };
@@ -16,5 +16,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('confirms_history');
+  return knex.schema.dropTable('events');
 };

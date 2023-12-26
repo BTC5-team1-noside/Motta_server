@@ -5,6 +5,8 @@ const {
   createInsertTimeTablesHistory,
   createInsertItemsHistory,
   createTimetables,
+  createEvents,
+  createStudents,
 } = require('./helpers.js');
 const {
   checkTimetablesHistory,
@@ -12,6 +14,8 @@ const {
   getItemNames,
   getMergeTimetables,
   getMergeBelongings,
+  getMergeConfirmsHistory,
+  getTimetableHistory,
 } = require('./dataAccess.js');
 const knex = require('./knex.js');
 
@@ -200,6 +204,50 @@ router.get('/settings/items', async (_, res) => {
 
   try {
     res.status(200).send(itemList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
+});
+
+// 🚀8.GET:設定画面のイベント編集でイベントのデータを受け取りたい
+router.get('/settings/events', async (_, res) => {
+  const eventList = await knex('events');
+  const events = createEvents(eventList);
+
+  try {
+    res.status(200).send(events);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('サーバーエラーです');
+  }
+});
+
+// 🚀9.GET:HOME画面で先生と生徒のデータ登録履歴のデータを受け取りたい
+router.get('/home/checks-data', async (req, res) => {
+  const date =
+    req.query.date || moment(new Date()).local('ja').format('YYYY-MM-DD');
+
+  const splitDate = date.split('-');
+  const formatDate = splitDate[0] + '-' + splitDate[1].padStart(2, '0') + '%';
+
+  const timeTableList = await getTimetableHistory(formatDate);
+  const timeTablesHistoryDates = timeTableList.map((el) =>
+    moment(el).local('ja').format('YYYY-MM-DD')
+  );
+
+  const confirmsHistoryList = await getMergeConfirmsHistory(date);
+  const studentList = await knex('students');
+
+  const studentsHistory = createStudents(
+    confirmsHistoryList,
+    timeTablesHistoryDates,
+    studentList,
+    date
+  );
+
+  try {
+    res.status(200).send(studentsHistory);
   } catch (error) {
     console.error(error);
     res.status(500).send('サーバーエラーです');

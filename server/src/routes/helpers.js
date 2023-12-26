@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 // ✨subjectsの作成用
 const createSubjects = (subjectList, subjectItem) => {
   const subjects = [];
@@ -71,9 +73,66 @@ const createTimetables = (timetableList, subjectNames) => {
   return timetables;
 };
 
+// ✨eventsの作成用
+const createEvents = (eventList) => {
+  const events = [];
+
+  eventList.forEach((el) => {
+    const obj = {
+      event_name: el['event_name'],
+      itemNames: [el['item_name']],
+      date: moment(el['date']).local('ja').format('YYYY-MM-DD'),
+    };
+
+    const periodArr = events.map((e) => e['event_name']);
+    const index = periodArr.indexOf(el['event_name']);
+    // データが無ければ、objごとpushして、データが有ればobjの中のitemNamesに持ち物を追加
+    if (index === -1) {
+      events.push(obj);
+    } else {
+      events[index]['itemNames'].push(el['item_name']);
+    }
+  });
+
+  return events;
+};
+
+// ✨studentsの作成用
+const createStudents = (
+  confirmsHistoryList,
+  timeTablesHistoryDates,
+  students,
+  date
+) => {
+  const studentsHistory = [];
+
+  students.forEach((el) => {
+    const obj = {
+      student_id: el['id'],
+      student_name: el['student_name'],
+      checkedInventory: false,
+    };
+
+    const index = confirmsHistoryList.indexOf(el['id']);
+
+    if (index !== -1) {
+      obj['checkedInventory'] = true;
+    }
+    studentsHistory.push(obj);
+  });
+
+  return {
+    selectedDate: date,
+    timeTablesHistoryDates: timeTablesHistoryDates,
+    studentsHistory: studentsHistory,
+  };
+};
+
 module.exports = {
   createSubjects,
   createInsertTimeTablesHistory,
   createInsertItemsHistory,
   createTimetables,
+  createEvents,
+  createStudents,
 };
