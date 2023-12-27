@@ -1,6 +1,6 @@
 # 本番環境の URL
 
-バックエンドのみ Heroku にデプロイしています。
+バックエンドのみ Heroku にデプロイしています。  
 BaseURL:https://motta-9dbb2df4f6d7.herokuapp.com
 
 # データベース設計
@@ -72,4 +72,4 @@ npm run seed
 npm start
 ```
 
-以上でセットアップは完了です
+以上でセットアップは完了です。

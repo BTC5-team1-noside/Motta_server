@@ -12,10 +12,6 @@ exports.seed = async function (knex) {
   await knex('items_history').del();
   await knex('items_history').insert([
     // 12月
-    // 1週目
-    // 金曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-01' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-01' },
 
     // 2週目
     // 月曜日
@@ -32,9 +28,9 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-07' },
     { item_name: 'はしセット', everyday_items: true, date: '2023-12-07' },
-    // 金曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-08' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-08' },
+    // 日曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-10' },
+    { item_name: 'はしセット', everyday_items: true, date: '2023-12-10' },
 
     // 3週目
     // 月曜日
@@ -51,9 +47,9 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-14' },
     { item_name: 'はしセット', everyday_items: true, date: '2023-12-14' },
-    // 金曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-15' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-15' },
+    // 日曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-17' },
+    { item_name: 'はしセット', everyday_items: true, date: '2023-12-17' },
 
     // 4週目
     // 月曜日
@@ -70,9 +66,6 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-21' },
     { item_name: 'はしセット', everyday_items: true, date: '2023-12-21' },
-    // 金曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-22' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-22' },
 
     // 1月
     // 2週目は追加の持ち物あり
@@ -92,12 +85,12 @@ exports.seed = async function (knex) {
     { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-11' },
     { item_name: 'はしセット', everyday_items: true, date: '2024-01-11' },
     { item_name: 'リコーダー', everyday_items: false, date: '2024-01-11' },
-    // 金曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-12' },
-    { item_name: 'はしセット', everyday_items: true, date: '2024-01-12' },
-    { item_name: 'いろえんぴつ', everyday_items: false, date: '2024-01-12' },
-    { item_name: 'はさみ', everyday_items: false, date: '2024-01-12' },
-    { item_name: 'のり', everyday_items: false, date: '2024-01-12' },
+    // 日曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-14' },
+    { item_name: 'はしセット', everyday_items: true, date: '2024-01-14' },
+    { item_name: 'いろえんぴつ', everyday_items: false, date: '2024-01-14' },
+    { item_name: 'はさみ', everyday_items: false, date: '2024-01-14' },
+    { item_name: 'のり', everyday_items: false, date: '2024-01-14' },
 
     // 3週目
     // 月曜日
