@@ -1,6 +1,6 @@
 // Update with your config settings.
 require('dotenv').config();
-// console.log(process.env);
+console.log('DB_USER⭐️', process.env.DB_USER);
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -8,7 +8,7 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      user: process.env.DB_USER || 'yokota',
+      user: process.env.DB_USER || 'user',
       database: process.env.DB_NAME || 'motta',
     },
     migrations: {
