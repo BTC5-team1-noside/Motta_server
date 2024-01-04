@@ -49,6 +49,5 @@ exports.seed = async function (knex) {
     { student_name: 'れな' },
     { student_name: 'こはる' },
     { student_name: 'ひかる' },
-    { student_name: 'かな' },
   ]);
 };
