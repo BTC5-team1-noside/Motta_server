@@ -98,7 +98,7 @@ router.post('/timetables-history/:date', async (req, res) => {
     await knex('items_history').insert(insertItemsHistory);
 
     try {
-      res.status(200).send('正常にデータを登録しました');
+      res.status(200).send({ message: '正常にデータを登録しました' });
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
@@ -149,7 +149,7 @@ router.patch('/timetables-history/:date', async (req, res) => {
     await knex('items_history').insert(insertItemsHistory);
 
     try {
-      res.status(200).send('正常にデータを更新しました');
+      res.status(200).send({ message: '正常にデータを更新しました' });
     } catch (error) {
       console.error(error);
       res.status(500).send('サーバーエラーです');
