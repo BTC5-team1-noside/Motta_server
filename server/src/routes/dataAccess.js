@@ -13,7 +13,7 @@ const getMergeSubjectId = async (dateOrDay, tableName) => {
     .orderBy('period', 'asc');
 };
 
-// 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得
+// 🕹️items_historyテーブルから日常的に使う持ち物の名前データを取得//
 const getItemNames = async (dateOrDay, tableName, isHistoryData) => {
   let itemNames = [];
   let additionalItemNames = [];
