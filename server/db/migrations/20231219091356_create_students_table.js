@@ -6,6 +6,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('students', function (table) {
     table.increments('id').primary();
     table.string('student_name');
+    table.integer('character_id');
   });
 };
 
