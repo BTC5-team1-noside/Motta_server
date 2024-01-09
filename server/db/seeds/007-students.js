@@ -38,7 +38,7 @@ exports.seed = async function (knex) {
     { student_name: 'ゆりこ', character_id: 2 },
     { student_name: 'けんじ', character_id: 3 },
     { student_name: 'あいり', character_id: 4 },
-    { student_name: 'こうすけ', character_id: 5 },
+    { student_name: 'ゆうすけ', character_id: 5 },
     { student_name: 'はるか', character_id: 1 },
     { student_name: 'ゆうな', character_id: 2 },
     { student_name: 'こうじ', character_id: 3 },
