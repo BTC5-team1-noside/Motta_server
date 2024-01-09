@@ -84,10 +84,8 @@ const getMergeConfirmsHistory = async (date) => {
 };
 
 const getTimetableHistory = async (formatDate) => {
-  return await knex('timetables_history')
-    .whereRaw("to_char(date, 'YYYY-MM') like ?", [formatDate])
-    .distinct('date')
-    .pluck('date');
+  // 部分一致やめ
+  return await knex('timetables_history').distinct('date').pluck('date');
 };
 
 module.exports = {
