@@ -110,7 +110,7 @@ const createStudents = (
     const obj = {
       student_id: el['id'],
       student_name: el['student_name'],
-      character_id: el['character_id:'],
+      character_id: el['character_id'],
       checkedInventory: false,
     };
 
