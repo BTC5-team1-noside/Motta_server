@@ -15,6 +15,7 @@ exports.seed = async function (knex) {
     { subject_id: 2, period: 2, day: '月' },
     { subject_id: 3, period: 3, day: '月' },
     { subject_id: 1, period: 4, day: '月' },
+    { subject_id: 10, period: 5, day: '月' },
 
     // 火曜日
     { subject_id: 1, period: 1, day: '火' },

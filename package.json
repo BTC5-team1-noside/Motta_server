@@ -11,8 +11,7 @@
     "makeMigration": "knex migrate:make --knexfile server/src/knexfile.js",
     "seed": "knex seed:run --knexfile server/src/knexfile.js",
     "makeSeed": "knex seed:make --knexfile server/src/knexfile.js",
-    "build": "npm install && npm run migrate && npm run seed",
-    "setup": "npm start && npm run migrate && npm run seed"
+    "build": "npm install && npm run migrate && npm run seed"
   },
   "author": "",
   "license": "ISC",

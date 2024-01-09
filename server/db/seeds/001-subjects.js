@@ -25,5 +25,6 @@ exports.seed = async function (knex) {
     { subject_name: 'どうとく' },
     { subject_name: 'としょ' },
     { subject_name: 'ずこう' },
+    { subject_name: '-' },
   ]);
 };
