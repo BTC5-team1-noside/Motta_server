@@ -49,12 +49,11 @@ const getConfirmsHistory = async (studentId, date, tableName, isExactMatch) => {
       date: date,
     });
   } else {
-    return await knex(tableName)
-      .select('date')
-      .where({
-        student_id: studentId,
-      })
-      .whereRaw("to_char(date, 'YYYY-MM') like ?", [date]);
+    return await knex(tableName).select('date').where({
+      student_id: studentId,
+    });
+    // 部分一致やめ
+    // .whereRaw("to_char(date, 'YYYY-MM') like ?", [date]);
   }
 };
 
