@@ -478,7 +478,7 @@ exports.seed = async function (knex) {
     { student_id: 18, date: '2024-01-17' },
     { student_id: 18, date: '2024-01-18' },
     { student_id: 18, date: '2024-01-19' },
-    // { student_id: 18, date: '2024-01-22' },
+    { student_id: 18, date: '2024-01-22' },
 
     // 生徒19
     { student_id: 19, date: '2023-12-04' },
@@ -504,7 +504,7 @@ exports.seed = async function (knex) {
     { student_id: 19, date: '2024-01-17' },
     { student_id: 19, date: '2024-01-18' },
     { student_id: 19, date: '2024-01-19' },
-    // { student_id: 19, date: '2024-01-22' },
+    { student_id: 19, date: '2024-01-22' },
 
     // 生徒20
     { student_id: 20, date: '2023-12-04' },
