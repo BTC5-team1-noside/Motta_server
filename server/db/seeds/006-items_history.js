@@ -28,9 +28,9 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-07' },
     { item_name: 'はしセット', everyday_items: true, date: '2023-12-07' },
-    // 日曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-10' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-10' },
+    // 金曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-08' },
+    { item_name: 'はしセット', everyday_items: true, date: '2023-12-08' },
 
     // 3週目
     // 月曜日
@@ -47,9 +47,9 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-14' },
     { item_name: 'はしセット', everyday_items: true, date: '2023-12-14' },
-    // 日曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-17' },
-    { item_name: 'はしセット', everyday_items: true, date: '2023-12-17' },
+    // 金曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2023-12-15' },
+    { item_name: 'はしセット', everyday_items: true, date: '2023-12-15' },
 
     // 4週目
     // 月曜日
@@ -85,12 +85,12 @@ exports.seed = async function (knex) {
     { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-11' },
     { item_name: 'はしセット', everyday_items: true, date: '2024-01-11' },
     { item_name: 'リコーダー', everyday_items: false, date: '2024-01-11' },
-    // 日曜日
-    { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-14' },
-    { item_name: 'はしセット', everyday_items: true, date: '2024-01-14' },
-    { item_name: 'いろえんぴつ', everyday_items: false, date: '2024-01-14' },
-    { item_name: 'はさみ', everyday_items: false, date: '2024-01-14' },
-    { item_name: 'のり', everyday_items: false, date: '2024-01-14' },
+    // 金曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-12' },
+    { item_name: 'はしセット', everyday_items: true, date: '2024-01-12' },
+    { item_name: 'いろえんぴつ', everyday_items: false, date: '2024-01-12' },
+    { item_name: 'はさみ', everyday_items: false, date: '2024-01-12' },
+    { item_name: 'のり', everyday_items: false, date: '2024-01-12' },
 
     // 3週目
     // 月曜日

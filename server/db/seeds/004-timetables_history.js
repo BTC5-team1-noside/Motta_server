@@ -38,12 +38,12 @@ exports.seed = async function (knex) {
     { subject_id: 1, period: 3, date: '2023-12-07' },
     { subject_id: 8, period: 4, date: '2023-12-07' },
     { subject_id: 5, period: 5, date: '2023-12-07' },
-    // 日曜日
-    { subject_id: 9, period: 1, date: '2023-12-10' },
-    { subject_id: 9, period: 2, date: '2023-12-10' },
-    { subject_id: 3, period: 3, date: '2023-12-10' },
-    { subject_id: 1, period: 4, date: '2023-12-10' },
-    { subject_id: 2, period: 5, date: '2023-12-10' },
+    // 金曜日
+    { subject_id: 9, period: 1, date: '2023-12-08' },
+    { subject_id: 9, period: 2, date: '2023-12-08' },
+    { subject_id: 3, period: 3, date: '2023-12-08' },
+    { subject_id: 1, period: 4, date: '2023-12-08' },
+    { subject_id: 2, period: 5, date: '2023-12-08' },
 
     // 3週目
     // 月曜日
@@ -69,12 +69,12 @@ exports.seed = async function (knex) {
     { subject_id: 1, period: 3, date: '2023-12-14' },
     { subject_id: 8, period: 4, date: '2023-12-14' },
     { subject_id: 5, period: 5, date: '2023-12-14' },
-    // 日曜日
-    { subject_id: 9, period: 1, date: '2023-12-17' },
-    { subject_id: 9, period: 2, date: '2023-12-17' },
-    { subject_id: 3, period: 3, date: '2023-12-17' },
-    { subject_id: 1, period: 4, date: '2023-12-17' },
-    { subject_id: 2, period: 5, date: '2023-12-17' },
+    // 金曜日
+    { subject_id: 9, period: 1, date: '2023-12-15' },
+    { subject_id: 9, period: 2, date: '2023-12-15' },
+    { subject_id: 3, period: 3, date: '2023-12-15' },
+    { subject_id: 1, period: 4, date: '2023-12-15' },
+    { subject_id: 2, period: 5, date: '2023-12-15' },
 
     // 4週目
     // 月曜日
@@ -121,37 +121,37 @@ exports.seed = async function (knex) {
     { subject_id: 1, period: 3, date: '2024-01-11' },
     { subject_id: 8, period: 4, date: '2024-01-11' },
     { subject_id: 5, period: 5, date: '2024-01-11' },
-    // 日曜日
-    { subject_id: 9, period: 1, date: '2024-01-14' },
-    { subject_id: 9, period: 2, date: '2024-01-14' },
-    { subject_id: 3, period: 3, date: '2024-01-14' },
-    { subject_id: 1, period: 4, date: '2024-01-14' },
-    { subject_id: 2, period: 5, date: '2024-01-14' },
+    // 金曜日
+    { subject_id: 9, period: 1, date: '2024-01-12' },
+    { subject_id: 9, period: 2, date: '2024-01-12' },
+    { subject_id: 3, period: 3, date: '2024-01-12' },
+    { subject_id: 1, period: 4, date: '2024-01-12' },
+    { subject_id: 2, period: 5, date: '2024-01-12' },
 
     // 3週目は全て2時間
     // 月曜日
     { subject_id: 1, period: 1, date: '2024-01-15' },
     { subject_id: 2, period: 2, date: '2024-01-15' },
-    // { subject_id: 3, period: 3, date: '2024-01-15' },
-    // { subject_id: 1, period: 4, date: '2024-01-15' },
+    { subject_id: 3, period: 3, date: '2024-01-15' },
+    { subject_id: 1, period: 4, date: '2024-01-15' },
     // 火曜日
     { subject_id: 1, period: 1, date: '2024-01-16' },
     { subject_id: 2, period: 2, date: '2024-01-16' },
-    // { subject_id: 4, period: 3, date: '2024-01-16' },
-    // { subject_id: 1, period: 4, date: '2024-01-16' },
-    // { subject_id: 5, period: 5, date: '2024-01-16' },
+    { subject_id: 4, period: 3, date: '2024-01-16' },
+    { subject_id: 1, period: 4, date: '2024-01-16' },
+    { subject_id: 5, period: 5, date: '2024-01-16' },
     // 水曜日
     { subject_id: 4, period: 1, date: '2024-01-17' },
     { subject_id: 3, period: 2, date: '2024-01-17' },
-    // { subject_id: 1, period: 3, date: '2024-01-17' },
-    // { subject_id: 2, period: 4, date: '2024-01-17' },
-    // { subject_id: 6, period: 5, date: '2024-01-17' },
+    { subject_id: 1, period: 3, date: '2024-01-17' },
+    { subject_id: 2, period: 4, date: '2024-01-17' },
+    { subject_id: 6, period: 5, date: '2024-01-17' },
     // 木曜日
     { subject_id: 7, period: 1, date: '2024-01-18' },
     { subject_id: 4, period: 2, date: '2024-01-18' },
-    // { subject_id: 1, period: 3, date: '2024-01-18' },
-    // { subject_id: 8, period: 4, date: '2024-01-18' },
-    // { subject_id: 5, period: 5, date: '2024-01-18' },
+    { subject_id: 1, period: 3, date: '2024-01-18' },
+    { subject_id: 8, period: 4, date: '2024-01-18' },
+    { subject_id: 5, period: 5, date: '2024-01-18' },
     // 金曜日はDemoDay
   ]);
 };
