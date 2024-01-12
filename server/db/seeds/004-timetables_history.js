@@ -152,6 +152,12 @@ exports.seed = async function (knex) {
     { subject_id: 1, period: 3, date: '2024-01-18' },
     { subject_id: 8, period: 4, date: '2024-01-18' },
     { subject_id: 5, period: 5, date: '2024-01-18' },
+    // 金曜日
+    { subject_id: 9, period: 1, date: '2024-01-19' },
+    { subject_id: 9, period: 2, date: '2024-01-19' },
+    { subject_id: 3, period: 3, date: '2024-01-19' },
+    { subject_id: 1, period: 4, date: '2024-01-19' },
+    { subject_id: 2, period: 5, date: '2024-01-19' },
     // 金曜日はDemoDay
   ]);
 };
