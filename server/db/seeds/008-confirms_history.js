@@ -35,6 +35,7 @@ exports.seed = async function (knex) {
     { student_id: 1, date: '2024-01-16' },
     { student_id: 1, date: '2024-01-17' },
     { student_id: 1, date: '2024-01-18' },
+    { student_id: 1, date: '2024-01-19' },
     { student_id: 1, date: '2024-01-22' },
 
     // 生徒2
@@ -60,6 +61,7 @@ exports.seed = async function (knex) {
     { student_id: 2, date: '2024-01-16' },
     { student_id: 2, date: '2024-01-17' },
     { student_id: 2, date: '2024-01-18' },
+    { student_id: 2, date: '2024-01-19' },
     { student_id: 2, date: '2024-01-22' },
 
     // 生徒3
@@ -85,6 +87,7 @@ exports.seed = async function (knex) {
     { student_id: 3, date: '2024-01-16' },
     { student_id: 3, date: '2024-01-17' },
     { student_id: 3, date: '2024-01-18' },
+    { student_id: 3, date: '2024-01-19' },
     { student_id: 3, date: '2024-01-22' },
 
     // 生徒4
@@ -110,6 +113,7 @@ exports.seed = async function (knex) {
     { student_id: 4, date: '2024-01-16' },
     { student_id: 4, date: '2024-01-17' },
     { student_id: 4, date: '2024-01-18' },
+    { student_id: 4, date: '2024-01-19' },
     { student_id: 4, date: '2024-01-22' },
 
     // 生徒5
@@ -135,6 +139,7 @@ exports.seed = async function (knex) {
     { student_id: 5, date: '2024-01-16' },
     { student_id: 5, date: '2024-01-17' },
     { student_id: 5, date: '2024-01-18' },
+    { student_id: 5, date: '2024-01-19' },
     { student_id: 5, date: '2024-01-22' },
 
     // 生徒6
@@ -160,6 +165,7 @@ exports.seed = async function (knex) {
     { student_id: 6, date: '2024-01-16' },
     { student_id: 6, date: '2024-01-17' },
     { student_id: 6, date: '2024-01-18' },
+    { student_id: 6, date: '2024-01-19' },
     { student_id: 6, date: '2024-01-22' },
 
     // 生徒7
@@ -185,6 +191,7 @@ exports.seed = async function (knex) {
     { student_id: 7, date: '2024-01-16' },
     { student_id: 7, date: '2024-01-17' },
     { student_id: 7, date: '2024-01-18' },
+    { student_id: 7, date: '2024-01-19' },
     { student_id: 7, date: '2024-01-22' },
 
     // 生徒8
@@ -210,6 +217,7 @@ exports.seed = async function (knex) {
     { student_id: 8, date: '2024-01-16' },
     { student_id: 8, date: '2024-01-17' },
     { student_id: 8, date: '2024-01-18' },
+    { student_id: 8, date: '2024-01-19' },
     { student_id: 8, date: '2024-01-22' },
 
     // 生徒9
@@ -235,6 +243,7 @@ exports.seed = async function (knex) {
     { student_id: 9, date: '2024-01-16' },
     { student_id: 9, date: '2024-01-17' },
     { student_id: 9, date: '2024-01-18' },
+    { student_id: 9, date: '2024-01-19' },
     { student_id: 9, date: '2024-01-22' },
 
     // 生徒10
@@ -260,6 +269,7 @@ exports.seed = async function (knex) {
     { student_id: 10, date: '2024-01-16' },
     { student_id: 10, date: '2024-01-17' },
     { student_id: 10, date: '2024-01-18' },
+    { student_id: 10, date: '2024-01-19' },
     { student_id: 10, date: '2024-01-22' },
 
     // 生徒11
@@ -285,6 +295,7 @@ exports.seed = async function (knex) {
     { student_id: 11, date: '2024-01-16' },
     { student_id: 11, date: '2024-01-17' },
     { student_id: 11, date: '2024-01-18' },
+    { student_id: 11, date: '2024-01-19' },
     { student_id: 11, date: '2024-01-22' },
 
     // 生徒12
@@ -310,6 +321,7 @@ exports.seed = async function (knex) {
     { student_id: 12, date: '2024-01-16' },
     { student_id: 12, date: '2024-01-17' },
     { student_id: 12, date: '2024-01-18' },
+    { student_id: 12, date: '2024-01-19' },
     { student_id: 12, date: '2024-01-22' },
 
     // 生徒13
@@ -335,6 +347,7 @@ exports.seed = async function (knex) {
     { student_id: 13, date: '2024-01-16' },
     { student_id: 13, date: '2024-01-17' },
     { student_id: 13, date: '2024-01-18' },
+    { student_id: 13, date: '2024-01-19' },
     { student_id: 13, date: '2024-01-22' },
 
     // 生徒14
@@ -360,6 +373,7 @@ exports.seed = async function (knex) {
     { student_id: 14, date: '2024-01-16' },
     { student_id: 14, date: '2024-01-17' },
     { student_id: 14, date: '2024-01-18' },
+    { student_id: 14, date: '2024-01-19' },
     { student_id: 14, date: '2024-01-22' },
 
     // 生徒15
@@ -385,6 +399,7 @@ exports.seed = async function (knex) {
     { student_id: 15, date: '2024-01-16' },
     { student_id: 15, date: '2024-01-17' },
     { student_id: 15, date: '2024-01-18' },
+    { student_id: 15, date: '2024-01-19' },
     { student_id: 15, date: '2024-01-22' },
 
     // 生徒16
@@ -410,6 +425,7 @@ exports.seed = async function (knex) {
     { student_id: 16, date: '2024-01-16' },
     { student_id: 16, date: '2024-01-17' },
     { student_id: 16, date: '2024-01-18' },
+    { student_id: 16, date: '2024-01-19' },
     { student_id: 16, date: '2024-01-22' },
 
     // 生徒17
@@ -435,6 +451,7 @@ exports.seed = async function (knex) {
     { student_id: 17, date: '2024-01-16' },
     { student_id: 17, date: '2024-01-17' },
     { student_id: 17, date: '2024-01-18' },
+    { student_id: 17, date: '2024-01-19' },
     { student_id: 17, date: '2024-01-22' },
 
     // 生徒18
@@ -458,9 +475,10 @@ exports.seed = async function (knex) {
     { student_id: 18, date: '2024-01-12' },
     { student_id: 18, date: '2024-01-15' },
     { student_id: 18, date: '2024-01-16' },
-    // { student_id: 18, date: '2024-01-17' },
+    { student_id: 18, date: '2024-01-17' },
     { student_id: 18, date: '2024-01-18' },
-    { student_id: 18, date: '2024-01-22' },
+    { student_id: 18, date: '2024-01-19' },
+    // { student_id: 18, date: '2024-01-22' },
 
     // 生徒19
     { student_id: 19, date: '2023-12-04' },
@@ -475,7 +493,7 @@ exports.seed = async function (knex) {
     { student_id: 19, date: '2023-12-15' },
     { student_id: 19, date: '2023-12-18' },
     { student_id: 19, date: '2023-12-19' },
-    // { student_id: 19, date: '2023-12-20' },
+    { student_id: 19, date: '2023-12-20' },
     { student_id: 19, date: '2023-12-21' },
     { student_id: 19, date: '2024-01-09' },
     { student_id: 19, date: '2024-01-10' },
@@ -485,7 +503,8 @@ exports.seed = async function (knex) {
     { student_id: 19, date: '2024-01-16' },
     { student_id: 19, date: '2024-01-17' },
     { student_id: 19, date: '2024-01-18' },
-    { student_id: 19, date: '2024-01-22' },
+    { student_id: 19, date: '2024-01-19' },
+    // { student_id: 19, date: '2024-01-22' },
 
     // 生徒20
     { student_id: 20, date: '2023-12-04' },
@@ -502,7 +521,7 @@ exports.seed = async function (knex) {
     { student_id: 20, date: '2023-12-19' },
     { student_id: 20, date: '2023-12-20' },
     { student_id: 20, date: '2023-12-21' },
-    // { student_id: 20, date: '2024-01-09' },
+    { student_id: 20, date: '2024-01-09' },
     { student_id: 20, date: '2024-01-10' },
     { student_id: 20, date: '2024-01-11' },
     { student_id: 20, date: '2024-01-12' },
@@ -510,6 +529,7 @@ exports.seed = async function (knex) {
     { student_id: 20, date: '2024-01-16' },
     { student_id: 20, date: '2024-01-17' },
     { student_id: 20, date: '2024-01-18' },
+    { student_id: 20, date: '2024-01-19' },
     // { student_id: 20, date: '2024-01-22' },
 
     // 生徒21
@@ -535,6 +555,7 @@ exports.seed = async function (knex) {
     { student_id: 21, date: '2024-01-16' },
     { student_id: 21, date: '2024-01-17' },
     { student_id: 21, date: '2024-01-18' },
+    { student_id: 21, date: '2024-01-19' },
     // { student_id: 21, date: '2024-01-22' },
 
     // 生徒22
@@ -551,7 +572,7 @@ exports.seed = async function (knex) {
     { student_id: 22, date: '2023-12-18' },
     { student_id: 22, date: '2023-12-19' },
     { student_id: 22, date: '2023-12-20' },
-    // { student_id: 22, date: '2023-12-21' },
+    { student_id: 22, date: '2023-12-21' },
     { student_id: 22, date: '2024-01-09' },
     { student_id: 22, date: '2024-01-10' },
     { student_id: 22, date: '2024-01-11' },
@@ -560,6 +581,7 @@ exports.seed = async function (knex) {
     { student_id: 22, date: '2024-01-16' },
     { student_id: 22, date: '2024-01-17' },
     { student_id: 22, date: '2024-01-18' },
+    { student_id: 22, date: '2024-01-19' },
     // { student_id: 22, date: '2024-01-22' },
 
     // 生徒23
@@ -582,9 +604,10 @@ exports.seed = async function (knex) {
     { student_id: 23, date: '2024-01-11' },
     { student_id: 23, date: '2024-01-12' },
     { student_id: 23, date: '2024-01-15' },
-    // { student_id: 23, date: '2024-01-16' },
+    { student_id: 23, date: '2024-01-16' },
     { student_id: 23, date: '2024-01-17' },
     { student_id: 23, date: '2024-01-18' },
+    { student_id: 23, date: '2024-01-19' },
     // { student_id: 23, date: '2024-01-22' },
 
     // 生徒24
@@ -608,8 +631,9 @@ exports.seed = async function (knex) {
     { student_id: 24, date: '2024-01-12' },
     { student_id: 24, date: '2024-01-15' },
     { student_id: 24, date: '2024-01-16' },
-    // { student_id: 24, date: '2024-01-17' },
+    { student_id: 24, date: '2024-01-17' },
     { student_id: 24, date: '2024-01-18' },
+    { student_id: 24, date: '2024-01-19' },
     // { student_id: 24, date: '2024-01-22' },
 
     // 生徒25
@@ -629,12 +653,13 @@ exports.seed = async function (knex) {
     { student_id: 25, date: '2023-12-21' },
     { student_id: 25, date: '2024-01-09' },
     { student_id: 25, date: '2024-01-10' },
-    // { student_id: 25, date: '2024-01-11' },
+    { student_id: 25, date: '2024-01-11' },
     { student_id: 25, date: '2024-01-12' },
     { student_id: 25, date: '2024-01-15' },
     { student_id: 25, date: '2024-01-16' },
     { student_id: 25, date: '2024-01-17' },
     { student_id: 25, date: '2024-01-18' },
+    { student_id: 25, date: '2024-01-19' },
     // { student_id: 25, date: '2024-01-22' },
 
     // 生徒26
@@ -649,7 +674,7 @@ exports.seed = async function (knex) {
     { student_id: 26, date: '2023-12-14' },
     { student_id: 26, date: '2023-12-15' },
     { student_id: 26, date: '2023-12-18' },
-    // { student_id: 26, date: '2023-12-19' },
+    { student_id: 26, date: '2023-12-19' },
     { student_id: 26, date: '2023-12-20' },
     { student_id: 26, date: '2023-12-21' },
     { student_id: 26, date: '2024-01-09' },
@@ -660,6 +685,7 @@ exports.seed = async function (knex) {
     { student_id: 26, date: '2024-01-16' },
     { student_id: 26, date: '2024-01-17' },
     { student_id: 26, date: '2024-01-18' },
+    { student_id: 26, date: '2024-01-19' },
     // { student_id: 26, date: '2024-01-22' },
 
     // 生徒27
@@ -682,9 +708,10 @@ exports.seed = async function (knex) {
     { student_id: 27, date: '2024-01-11' },
     { student_id: 27, date: '2024-01-12' },
     { student_id: 27, date: '2024-01-15' },
-    // { student_id: 27, date: '2024-01-16' },
+    { student_id: 27, date: '2024-01-16' },
     { student_id: 27, date: '2024-01-17' },
     { student_id: 27, date: '2024-01-18' },
+    { student_id: 27, date: '2024-01-19' },
     // { student_id: 27, date: '2024-01-22' },
 
     // 生徒28
@@ -710,6 +737,7 @@ exports.seed = async function (knex) {
     { student_id: 28, date: '2024-01-16' },
     { student_id: 28, date: '2024-01-17' },
     { student_id: 28, date: '2024-01-18' },
+    { student_id: 28, date: '2024-01-19' },
     // { student_id: 28, date: '2024-01-22' },
 
     // 生徒29
@@ -735,6 +763,7 @@ exports.seed = async function (knex) {
     { student_id: 29, date: '2024-01-16' },
     { student_id: 29, date: '2024-01-17' },
     { student_id: 29, date: '2024-01-18' },
+    { student_id: 29, date: '2024-01-19' },
     // { student_id: 29, date: '2024-01-22' },
 
     // 生徒30
@@ -759,7 +788,8 @@ exports.seed = async function (knex) {
     { student_id: 30, date: '2024-01-15' },
     { student_id: 30, date: '2024-01-16' },
     { student_id: 30, date: '2024-01-17' },
-    // { student_id: 30, date: '2024-01-18' },
+    { student_id: 30, date: '2024-01-18' },
+    { student_id: 30, date: '2024-01-19' },
     // { student_id: 30, date: '2024-01-22' },
 
     // 生徒31
@@ -782,9 +812,10 @@ exports.seed = async function (knex) {
     { student_id: 31, date: '2024-01-11' },
     { student_id: 31, date: '2024-01-12' },
     { student_id: 31, date: '2024-01-15' },
-    // { student_id: 31, date: '2024-01-16' },
+    { student_id: 31, date: '2024-01-16' },
     { student_id: 31, date: '2024-01-17' },
     { student_id: 31, date: '2024-01-18' },
+    { student_id: 31, date: '2024-01-19' },
     // { student_id: 31, date: '2024-01-22' },
 
     // 生徒32
@@ -806,10 +837,11 @@ exports.seed = async function (knex) {
     { student_id: 32, date: '2024-01-10' },
     { student_id: 32, date: '2024-01-11' },
     { student_id: 32, date: '2024-01-12' },
-    // { student_id: 32, date: '2024-01-15' },
+    { student_id: 32, date: '2024-01-15' },
     { student_id: 32, date: '2024-01-16' },
     { student_id: 32, date: '2024-01-17' },
     { student_id: 32, date: '2024-01-18' },
+    { student_id: 32, date: '2024-01-19' },
     // { student_id: 32, date: '2024-01-22' },
 
     // 生徒33
@@ -830,11 +862,12 @@ exports.seed = async function (knex) {
     { student_id: 33, date: '2024-01-09' },
     { student_id: 33, date: '2024-01-10' },
     { student_id: 33, date: '2024-01-11' },
-    // { student_id: 33, date: '2024-01-12' },
+    { student_id: 33, date: '2024-01-12' },
     { student_id: 33, date: '2024-01-15' },
     { student_id: 33, date: '2024-01-16' },
     { student_id: 33, date: '2024-01-17' },
     { student_id: 33, date: '2024-01-18' },
+    { student_id: 33, date: '2024-01-19' },
     // { student_id: 33, date: '2024-01-22' },
 
     // 生徒34
@@ -853,13 +886,14 @@ exports.seed = async function (knex) {
     { student_id: 34, date: '2023-12-20' },
     { student_id: 34, date: '2023-12-21' },
     { student_id: 34, date: '2024-01-09' },
-    // { student_id: 34, date: '2024-01-10' },
+    { student_id: 34, date: '2024-01-10' },
     { student_id: 34, date: '2024-01-11' },
     { student_id: 34, date: '2024-01-12' },
     { student_id: 34, date: '2024-01-15' },
     { student_id: 34, date: '2024-01-16' },
     { student_id: 34, date: '2024-01-17' },
     { student_id: 34, date: '2024-01-18' },
+    { student_id: 34, date: '2024-01-19' },
     // { student_id: 34, date: '2024-01-22' },
 
     // 生徒35
@@ -880,11 +914,12 @@ exports.seed = async function (knex) {
     { student_id: 35, date: '2024-01-09' },
     { student_id: 35, date: '2024-01-10' },
     { student_id: 35, date: '2024-01-11' },
-    // { student_id: 35, date: '2024-01-12' },
+    { student_id: 35, date: '2024-01-12' },
     { student_id: 35, date: '2024-01-15' },
     { student_id: 35, date: '2024-01-16' },
-    // { student_id: 35, date: '2024-01-17' },
-    // { student_id: 35, date: '2024-01-18' },
+    { student_id: 35, date: '2024-01-17' },
+    { student_id: 35, date: '2024-01-18' },
+    { student_id: 35, date: '2024-01-19' },
     // { student_id: 35, date: '2024-01-22' },
   ]);
 };
