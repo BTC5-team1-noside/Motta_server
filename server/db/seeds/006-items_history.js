@@ -107,6 +107,8 @@ exports.seed = async function (knex) {
     // 木曜日
     { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-18' },
     { item_name: 'はしセット', everyday_items: true, date: '2024-01-18' },
-    // 金曜日はDemoDay
+    // 金曜日
+    { item_name: 'ふでばこ', everyday_items: true, date: '2024-01-19' },
+    { item_name: 'はしセット', everyday_items: true, date: '2024-01-19' },
   ]);
 };

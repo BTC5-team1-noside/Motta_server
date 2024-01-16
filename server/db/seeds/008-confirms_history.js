@@ -921,5 +921,26 @@ exports.seed = async function (knex) {
     { student_id: 35, date: '2024-01-18' },
     { student_id: 35, date: '2024-01-19' },
     // { student_id: 35, date: '2024-01-22' },
+
+    // seedデモデイ用
+    // { student_id: 1, date: '2024-01-24' },
+    // { student_id: 2, date: '2024-01-24' },
+    // { student_id: 3, date: '2024-01-24' },
+    // { student_id: 4, date: '2024-01-24' },
+    // { student_id: 5, date: '2024-01-24' },
+    // { student_id: 6, date: '2024-01-24' },
+    // { student_id: 7, date: '2024-01-24' },
+    // { student_id: 8, date: '2024-01-24' },
+    // { student_id: 9, date: '2024-01-24' },
+    // { student_id: 10, date: '2024-01-24' },
+    // { student_id: 11, date: '2024-01-24' },
+    // { student_id: 12, date: '2024-01-24' },
+    // { student_id: 13, date: '2024-01-24' },
+    // { student_id: 14, date: '2024-01-24' },
+    // { student_id: 15, date: '2024-01-24' },
+    // { student_id: 16, date: '2024-01-24' },
+    // { student_id: 17, date: '2024-01-24' },
+    // { student_id: 18, date: '2024-01-24' },
+    // { student_id: 19, date: '2024-01-24' },
   ]);
 };

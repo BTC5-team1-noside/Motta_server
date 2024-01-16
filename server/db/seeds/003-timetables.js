@@ -15,7 +15,7 @@ exports.seed = async function (knex) {
     { subject_id: 2, period: 2, day: '月' },
     { subject_id: 3, period: 3, day: '月' },
     { subject_id: 1, period: 4, day: '月' },
-    { subject_id: 10, period: 5, day: '月' },
+    { subject_id: 10, period: 5, day: '月' }, // 授業なし
 
     // 火曜日
     { subject_id: 1, period: 1, day: '火' },
@@ -29,7 +29,8 @@ exports.seed = async function (knex) {
     { subject_id: 3, period: 2, day: '水' },
     { subject_id: 1, period: 3, day: '水' },
     { subject_id: 2, period: 4, day: '水' },
-    { subject_id: 6, period: 5, day: '水' },
+    // { subject_id: 6, period: 5, day: '水' },
+    { subject_id: 10, period: 5, day: '水' }, // 授業なし
 
     // 木曜日
     { subject_id: 7, period: 1, day: '木' },
