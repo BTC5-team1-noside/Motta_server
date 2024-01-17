@@ -942,5 +942,6 @@ exports.seed = async function (knex) {
     { student_id: 17, date: '2024-01-24' },
     { student_id: 18, date: '2024-01-24' },
     { student_id: 19, date: '2024-01-24' },
+    { student_id: 20, date: '2024-01-24' },
   ]);
 };
